@@ -1,5 +1,5 @@
 <!-- prompts/templates/prompts/template_selection.html -->
-<div class="fixed inset-0 bg-gray-700 bg-opacity-40 z-50 flex items-center justify-center" id="template-selection-modal">
+<div class="fixed inset-0 bg-slate-500 bg-opacity-60 z-50 flex items-center justify-center" id="template-selection-modal">
     <div class="bg-white rounded-xl p-6 shadow-lg w-full max-w-lg mx-4">
         <div class="flex flex-col space-y-4">
             <h3 class="text-lg font-bold">Import Content</h3>
@@ -8,17 +8,17 @@
             <!-- Tabs Navigation -->
             <div class="border-b border-gray-200">
                 <nav class="flex -mb-px space-x-6" aria-label="Tabs">
-                    <button id="tab-templates" class="tab-button border-[#9810fa] text-[#9810fa] border-b-2 py-2 px-1 text-sm font-medium" aria-current="page">
+                    <button id="tab-templates" class="tab-nav-btn border-[#9810fa] text-[#9810fa] border-b-2 py-2 px-1 text-sm font-medium" data-target="content-templates">
                         Templates
                     </button>
-                    <button id="tab-prompts" class="tab-button border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 border-b-2 py-2 px-1 text-sm font-medium">
+                    <button id="tab-prompts" class="tab-nav-btn border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 border-b-2 py-2 px-1 text-sm font-medium" data-target="content-prompts">
                         My Generated Prompts
                     </button>
                 </nav>
             </div>
             
             <!-- Tab Content: Templates -->
-            <div id="content-templates" class="tab-content">
+            <div id="content-templates" class="tab-panel">
                 <div class="flex justify-center items-center py-2">
                     {% if templates %}
                         <select id="template-select" class="w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-[#9810fa] focus:border-[#9810fa]">
@@ -39,7 +39,7 @@
             </div>
             
             <!-- Tab Content: Generated Prompts -->
-            <div id="content-prompts" class="tab-content hidden">
+            <div id="content-prompts" class="tab-panel hidden">
                 <div class="flex justify-center items-center py-2">
                     {% if generated_prompts %}
                         <select id="prompt-select" class="w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-[#9810fa] focus:border-[#9810fa]">
@@ -66,242 +66,132 @@
                 <button class="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 px-4 py-2" onclick="closeTemplateModal()">
                     Cancel
                 </button>
-                <button id="confirm-import-button" class="btn-main inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-[#9810fa] text-white shadow-sm hover:bg-[#9810fa]/90 h-9 px-4 py-2" onclick="importSelected()">
+                <button id="confirm-import-button" class="btn-main inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-[#9810fa] text-white shadow-sm hover:bg-[#9810fa]/90 h-9 px-4 py-2" onclick="importContent()">
                     Import
                 </button>
             </div>
         </div>
     </div>
 </div>
-  
+ 
 <script>
-    // Initialize the modal functionality
-    document.addEventListener('DOMContentLoaded', function() {
-        initializeModalTabs();
-        updateImportButtonState();
-    });
-    
-    // Tab switching functionality
-    function initializeModalTabs() {
-        // Get reference to tab elements
-        const templateTab = document.getElementById('tab-templates');
-        const promptsTab = document.getElementById('tab-prompts');
-        const templateContent = document.getElementById('content-templates');
-        const promptsContent = document.getElementById('content-prompts');
+    // Execute immediately when loaded
+    (function() {
+      console.log("Modal tab script loaded");
+      
+      // Get tab elements
+      const templatesTab = document.getElementById('tab-templates');
+      const promptsTab = document.getElementById('tab-prompts');
+      
+      if (templatesTab && promptsTab) {
+        console.log("Found tab elements, attaching event listeners");
         
-        // Ensure elements exist before adding event listeners
-        if (templateTab && promptsTab && templateContent && promptsContent) {
-            // Add click handler for Templates tab
-            templateTab.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                // Update tab styling
-                templateTab.classList.remove('border-transparent', 'text-gray-500');
-                templateTab.classList.add('border-[#9810fa]', 'text-[#9810fa]');
-                promptsTab.classList.remove('border-[#9810fa]', 'text-[#9810fa]');
-                promptsTab.classList.add('border-transparent', 'text-gray-500');
-                
-                // Show appropriate content
-                templateContent.classList.remove('hidden');
-                promptsContent.classList.add('hidden');
-                
-                // Update import button state
-                updateImportButtonState();
-            });
-            
-            // Add click handler for Generated Prompts tab
-            promptsTab.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                // Update tab styling
-                promptsTab.classList.remove('border-transparent', 'text-gray-500');
-                promptsTab.classList.add('border-[#9810fa]', 'text-[#9810fa]');
-                templateTab.classList.remove('border-[#9810fa]', 'text-[#9810fa]');
-                templateTab.classList.add('border-transparent', 'text-gray-500');
-                
-                // Show appropriate content
-                promptsContent.classList.remove('hidden');
-                templateContent.classList.add('hidden');
-                
-                // Update import button state
-                updateImportButtonState();
-            });
-            
-            // Add change handlers for the selects to update button state
-            const templateSelect = document.getElementById('template-select');
-            const promptSelect = document.getElementById('prompt-select');
-            
-            if (templateSelect) {
-                templateSelect.addEventListener('change', updateImportButtonState);
-            }
-            
-            if (promptSelect) {
-                promptSelect.addEventListener('change', updateImportButtonState);
-            }
-        } else {
-            console.error("One or more required tab elements are missing");
-        }
-    }
-    
-    // Update the state of the import button based on selections
-    function updateImportButtonState() {
+        // Templates tab click handler
+        templatesTab.onclick = function(e) {
+          e.preventDefault();
+          console.log("Templates tab clicked");
+          
+          // Show templates, hide prompts
+          document.getElementById('content-templates').style.display = 'block';
+          document.getElementById('content-prompts').style.display = 'none';
+          
+          // Update active styles
+          templatesTab.className = 'tab-button border-[#9810fa] text-[#9810fa] border-b-2 py-2 px-1 text-sm font-medium';
+          promptsTab.className = 'tab-button border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 border-b-2 py-2 px-1 text-sm font-medium';
+        };
+        
+        // Prompts tab click handler
+        promptsTab.onclick = function(e) {
+          e.preventDefault();
+          console.log("Prompts tab clicked");
+          
+          // Show prompts, hide templates
+          document.getElementById('content-templates').style.display = 'none';
+          document.getElementById('content-prompts').style.display = 'block';
+          
+          // Update active styles
+          promptsTab.className = 'tab-button border-[#9810fa] text-[#9810fa] border-b-2 py-2 px-1 text-sm font-medium';
+          templatesTab.className = 'tab-button border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 border-b-2 py-2 px-1 text-sm font-medium';
+        };
+        
+        // Fix for the import button
         const importButton = document.getElementById('confirm-import-button');
-        if (!importButton) return;
-        
-        // Default to disabled
-        importButton.disabled = true;
-        importButton.classList.add('opacity-50');
-        
-        // Check which tab is active
-        const templatesTab = document.getElementById('content-templates');
-        const promptsTab = document.getElementById('content-prompts');
-        
-        if (!templatesTab || !promptsTab) return;
-        
-        if (!templatesTab.classList.contains('hidden')) {
-            // Templates tab is active
-            const templateSelect = document.getElementById('template-select');
-            if (templateSelect && templateSelect.value) {
-                importButton.disabled = false;
-                importButton.classList.remove('opacity-50');
-            }
-        } else {
-            // Generated Prompts tab is active
-            const promptSelect = document.getElementById('prompt-select');
-            if (promptSelect && promptSelect.value) {
-                importButton.disabled = false;
-                importButton.classList.remove('opacity-50');
-            }
-        }
-    }
-
-    // Close modal function
-    function closeTemplateModal() {
-        const modal = document.getElementById('template-selection-modal');
-        if (modal) {
-            modal.remove(); // Remove the modal completely instead of just hiding
+        if (importButton) {
+          importButton.onclick = function() {
+            // Determine active tab
+            const isPromptTab = promptsTab.className.includes('border-[#9810fa]');
+            let selectedId, endpoint, payload;
             
-            // If this is opened in a parent window, we might need to refresh that too
-            if (window.parent && window.parent.document.getElementById('modal-container')) {
-                window.parent.document.getElementById('modal-container').innerHTML = '';
+            if (isPromptTab) {
+              // Get selected prompt
+              const promptSelect = document.getElementById('prompt-select');
+              if (!promptSelect || !promptSelect.value) {
+                alert("Please select a generated prompt");
+                return;
+              }
+              selectedId = promptSelect.value;
+              endpoint = '/prompts/{{ project.id }}/import-generated-prompt/';
+              payload = { promptId: selectedId };
+            } else {
+              // Get selected template
+              const templateSelect = document.getElementById('template-select');
+              if (!templateSelect || !templateSelect.value) {
+                alert("Please select a template");
+                return;
+              }
+              selectedId = templateSelect.value;
+              endpoint = '/prompts/{{ project.id }}/import-template/';
+              payload = { templateId: selectedId };
             }
-        }
-    }
-  
-    // Import selected item (template or generated prompt)
-    function importSelected() {
-        let selectedId = null;
-        let selectedType = null;
-        
-        // Check which tab is active and get the selected value
-        const templatesTab = document.getElementById('content-templates');
-        const promptsTab = document.getElementById('content-prompts');
-        
-        if (!templatesTab.classList.contains('hidden')) {
-            // Templates tab is active
-            const templateSelect = document.getElementById('template-select');
-            if (templateSelect && templateSelect.value) {
-                selectedId = templateSelect.value;
-                selectedType = 'template';
-            }
-        } else {
-            // Generated Prompts tab is active
-            const promptSelect = document.getElementById('prompt-select');
-            if (promptSelect && promptSelect.value) {
-                selectedId = promptSelect.value;
-                selectedType = 'generated_prompt';
-            }
-        }
-        
-        if (!selectedId) {
-            // Show error if nothing is selected
-            alert("Please select an item to import");
-            return;
-        }
-        
-        // Add loading state
-        const confirmButton = document.getElementById('confirm-import-button');
-        if (!confirmButton) {
-            console.error("Could not find confirm button element");
-            return;
-        }
-        
-        const originalText = confirmButton.innerHTML;
-        confirmButton.innerHTML = '<svg class="animate-spin h-4 w-4 mr-2 inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Importing...';
-        confirmButton.disabled = true;
-        
-        // Get CSRF token
-        const csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]') 
-            ? document.querySelector('input[name="csrfmiddlewaretoken"]').value 
-            : '{{ csrf_token }}';
-        
-        // Set the appropriate URL based on content type
-        let importUrl = '';
-        if (selectedType === 'template') {
-            importUrl = '{% url "prompts:import_template" project_id=project.id %}';
-        } else {
-            importUrl = '{% url "prompts:import_generated_prompt" project_id=project.id %}';
-        }
-        
-        // Create the request payload
-        let payload = {};
-        if (selectedType === 'template') {
-            payload = { templateId: selectedId };
-        } else {
-            payload = { promptId: selectedId };
-        }
-        
-        console.log("Importing content:", selectedType, selectedId);
-        console.log("Request URL:", importUrl);
-        
-        // Send request to import
-        fetch(importUrl, {
-            method: 'POST',
-            headers: {
+            
+            // Show loading state
+            const originalText = this.innerHTML;
+            this.innerHTML = '<svg class="animate-spin h-4 w-4 mr-2 inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Importing...';
+            this.disabled = true;
+            
+            // Get CSRF token
+            const csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
+            
+            // Send request
+            fetch(endpoint, {
+              method: 'POST',
+              headers: {
                 'Content-Type': 'application/json',
                 'X-CSRFToken': csrfToken,
                 'X-Requested-With': 'XMLHttpRequest'
-            },
-            body: JSON.stringify(payload)
-        })
-        .then(response => {
-            console.log("Response status:", response.status);
-            return response.json().then(data => {
+              },
+              body: JSON.stringify(payload)
+            })
+            .then(response => {
+              console.log("Response status:", response.status);
+              return response.json().then(data => {
                 if (!response.ok) {
-                    // Error handling
-                    throw { 
-                        message: data.message || "Unknown error", 
-                        status: response.status,
-                        data: data 
-                    };
+                  throw { 
+                    message: data.message || "Unknown error", 
+                    status: response.status
+                  };
                 }
                 return data;
+              });
+            })
+            .then(data => {
+              console.log("Import successful:", data);
+              window.location.href = '/projects/{{ project.id }}/?tab=prompts';
+            })
+            .catch(error => {
+              console.error("Import error:", error);
+              alert(error.message || "Error importing content");
+              
+              // Reset button
+              this.innerHTML = originalText;
+              this.disabled = false;
             });
-        })
-        .then(data => {
-            console.log("Import response:", data);
-            
-            // Redirect back to project with tab parameter
-            window.location.href = "{% url 'projects:project_detail' project_id=project.id %}?tab=prompts";
-        })
-        .catch(error => {
-            console.error('Detailed error:', error);
-            
-            // Get error message
-            let errorMessage = 'Error importing content';
-            
-            if (error.data && error.data.message) {
-                errorMessage = error.data.message;
-            } else if (error.message) {
-                errorMessage += ": " + error.message;
-            }
-            
-            // Alert the error message instead of redirecting
-            alert(errorMessage);
-            
-            // Reset the button
-            confirmButton.innerHTML = originalText;
-            confirmButton.disabled = false;
-        });
-    }
-</script>
+          };
+        } else {
+          console.error("Import button not found");
+        }
+      } else {
+        console.error("Tab elements not found");
+      }
+    })();
+  </script>
