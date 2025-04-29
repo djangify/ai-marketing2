@@ -76,7 +76,7 @@ def prompt_edit_page(request, project_id, prompt_id):
         prompt.save()
         
         messages.success(request, "Prompt updated successfully!")
-        return redirect('projects:project_detail', project_id=project.id, tab='prompts')
+        return redirect(reverse('projects:project_detail', kwargs={'project_id': project.id}) + '?tab=prompts')
     
     # Display the form
     return render(request, 'prompts/prompt_create.html', {'project': project, 'prompt': prompt})
@@ -124,37 +124,7 @@ def prompt_edit(request, project_id):
     prompt = get_object_or_404(Prompt, id=prompt_id, project=project)
     return render(request, 'prompts/prompt_edit.html', {'prompt': prompt, 'project': project})
 
-@login_required
-def template_selection(request, project_id):
-    project = get_object_or_404(Project, id=project_id, user=request.user)
-    templates = Template.objects.filter(user=request.user)
-    
-    # Get user's generated prompts
-    generated_prompts = GeneratedPrompt.objects.filter(user=request.user)
-    
-    # Check if this is an error page or a modal
-    error = request.GET.get('error')
-    
-    # If error parameter exists, serve a full page rather than modal
-    if error:
-        context = {
-            'templates': templates,
-            'generated_prompts': generated_prompts,
-            'project': project,
-            'error': error,
-            'is_error_page': True
-        }
-        return render(request, 'prompts/template_selection_page.html', context)
-        
-    # Otherwise, serve the modal as normal
-    context = {
-        'templates': templates,
-        'generated_prompts': generated_prompts,
-        'project': project
-    }
-    return render(request, 'prompts/template_selection.html', context)
 
-# Add a new view for importing generated prompts
 @login_required
 def import_generated_prompt(request, project_id):
     project = get_object_or_404(Project, id=project_id, user=request.user)
@@ -209,7 +179,7 @@ def import_generated_prompt(request, project_id):
                 'token_count': prompt.token_count
             })
         else:
-            return redirect('projects:project_detail', project_id=project.id, tab='prompts')
+            return redirect(reverse('projects:project_detail', kwargs={'project_id': project.id}) + '?tab=prompts')
         
     except Exception as e:
         error_message = str(e)
@@ -217,6 +187,28 @@ def import_generated_prompt(request, project_id):
             return JsonResponse({'status': 'error', 'message': error_message}, status=500)
         else:
             return redirect(reverse('prompts:template_selection', kwargs={'project_id': project.id}) + f"?error={error_message}")
+
+
+@login_required
+def template_selection(request, project_id):
+    project = get_object_or_404(Project, id=project_id, user=request.user)
+    templates = Template.objects.filter(user=request.user)
+    
+    # Get user's generated prompts
+    generated_prompts = GeneratedPrompt.objects.filter(user=request.user)
+    
+    # Check if this is an error page - error can be passed as a URL parameter
+    error = request.GET.get('error')
+    
+    # Render the full page template
+    context = {
+        'templates': templates,
+        'generated_prompts': generated_prompts,
+        'project': project,
+        'error': error
+    }
+    return render(request, 'prompts/template_selection_page.html', context)
+
 
 
 @login_required
@@ -295,7 +287,7 @@ def import_template(request, project_id):
             } for p in new_prompts], safe=False)
         else:
             # Redirect for form submission
-            return redirect('projects:project_detail', project_id=project.id, tab='prompts')
+            return redirect(reverse('projects:project_detail', kwargs={'project_id': project.id}) + '?tab=prompts')
         
     except Exception as e:
         error_message = str(e)

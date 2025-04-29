@@ -8,16 +8,13 @@
     <div class="flex flex-col sm:flex-row items-start justify-between">
         <h2 class="text-xl md:text-2xl lg:text-2xl font-bold mb-4 sm:mb-0">Step 2: Prompts</h2>
         <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2 w-full sm:w-auto">
-            <button 
-                hx-get="{% url 'prompts:template_selection' project_id=project.id %}"
-                hx-target="#modal-container"
-                hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+            <a href="{% url 'prompts:template_selection' project_id=project.id %}"
                 class="bg-[#9810fa]/10 font-semibold hover:bg-[#9810fa]/15 text-sm sm:text-base rounded-lg w-full sm:w-auto h-8 sm:h-10 px-4 py-2 inline-flex items-center justify-center">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                 </svg>
                 Load Template
-            </button>
+            </a>
             <a href="{% url 'prompts:prompt_add_page' project_id=project.id %}"
                 class="bg-[#9810fa]/10 font-semibold hover:bg-[#9810fa]/15 text-sm sm:text-base rounded-lg w-full sm:w-auto h-10 sm:h- px-4 py-2 inline-flex items-center justify-center">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
@@ -89,24 +86,4 @@
         {% endif %}
     </div>
 
-    <!-- Container for template selection modal -->
-    <div id="modal-container"></div>
-</div>
-
-<script>
-    function closeTemplateModal() {
-        const modal = document.getElementById('template-selection-modal');
-        if (modal) {
-            modal.remove();
-        }
-    }
     
-    // Handle click outside of template selection modal to close it
-    document.addEventListener('click', function(event) {
-        // Check for template selection modal
-        const templateModal = document.getElementById('template-selection-modal');
-        if (templateModal && !event.target.closest('.max-w-[90%]') && event.target.closest('#template-selection-modal')) {
-            closeTemplateModal();
-        }
-    });
-</script>
