@@ -1,0 +1,74 @@
+{% load static %}
+<!-- projects/templates/projects/tabs/upload_tab.html -->
+
+<div id="upload-tab" data-project-id="{{ project.id }}" hx-trigger="load" hx-get="{% url 'assets:asset_list' project_id=project.id %}" hx-target="#asset-list-container">
+    <h2 class="text-xl md:text-2xl lg:text-2xl font-bold mb-8">Project Files Upload</h2>
+    
+    <!-- Upload Box -->
+    <div id="upload-box" 
+         class="p-10 border-2 border-dashed border-[#9810fa] bg-white rounded-3xl text-center cursor-pointer mb-10"
+         onclick="handleBoxClick(event);"
+         ondragover="event.preventDefault();"
+         ondrop="handleDrop(event)">
+        
+        <form id="upload-form" method="post" enctype="multipart/form-data" action="{% url 'assets:asset_upload' project_id=project.id %}" class="hidden">
+            {% csrf_token %}
+            <input type="file" id="file-input" name="files" multiple 
+                accept=".mp4,.txt,.md,.pdf,video/*,audio/*,text/plain,text/markdown,application/pdf"
+                onchange="handleFileSelect(event)">
+        </form>
+        
+        <div id="upload-placeholder">
+            <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto h-8 w-8 sm:h-10 sm:w-10 text-[#9810fa]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+            </svg>
+            <p class="mt-2 text-xs sm:text-sm text-[#9810fa] font-semibold">
+                Drag and drop files here, or click to select files
+            </p>
+        </div>
+        
+        <div id="selected-files" class="hidden">
+            <h3 class="font-bold mb-2">Selected Files:</h3>
+            <ul id="file-list" class="text-sm"></ul>
+            <button type="button" id="upload-button" 
+                    class="btn-main mt-4 inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 text-white shadow  h-9 px-4 py-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 sm:h-5 sm:w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                </svg>
+                Upload Files
+            </button>
+        </div>
+    </div>
+    
+    <!-- Assets List -->
+    <div>
+        <div class="flex flex-col sm:flex-row sm:justify-between sm:items-end mb-4 mt-3">
+            <h3 class="font-bold text-lg mb-2 sm:mb-0">Uploaded Files:</h3>
+            <div id="usage-stats" class="w-full sm:max-w-xs space-y-2"></div>
+        </div>
+        
+        <div id="asset-list-container" hx-get="{% url 'assets:asset_list' project_id=project.id %}" hx-trigger="load">
+            <!-- Asset list will be loaded by HTMX -->
+            <div class="flex justify-center p-8">
+                <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-[#9810fa]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                <span>Loading assets...</span>
+            </div>
+        </div>
+    </div>
+    <script src="{% static 'js/projects_upload_tab.js' %}"></script>
+</div>
+
+<!-- Duplicate File Modal Template -->
+<div id="duplicate-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 items-center justify-center hidden">
+    <div class="bg-white rounded-lg p-6 max-w-md w-full">
+        <h3 class="text-lg font-semibold mb-4">File Already Exists</h3>
+        <p id="duplicate-message" class="mb-6">This file already exists. Do you want to overwrite it?</p>
+        <div class="flex justify-end space-x-3">
+            <button type="button" id="cancel-overwrite-btn" class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md">Cancel</button>
+            <button type="button" id="confirm-overwrite-btn" class="px-4 py-2 bg-[#9810fa] text-white rounded-md">Overwrite</button>
+        </div>
+    </div>
+</div>

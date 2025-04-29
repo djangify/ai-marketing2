@@ -1,0 +1,101 @@
+py-2 px-3 focus:outline-none focus:ring-[#9810fa] focus:border-[#9810fa]">
+                            <option value="" disabled selected>Select a Template</option>
+                            {% for template in templates %}
+                                <option value="{{ template.id }}">{{ template.title }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    
+                    <div class="flex justify-end space-x-3">
+                        <a href="{% url 'projects:project_detail' project_id=project.id %}?tab=prompts" 
+                           class="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 px-4 py-2">
+                            Cancel
+                        </a>
+                        <button type="submit" 
+                                class="btn-main inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-[#9810fa] text-white shadow-sm hover:bg-[#9810fa]/90 h-9 px-4 py-2">
+                            Import Template
+                        </button>
+                    </div>
+                {% else %}
+                    <div class="text-center py-6">
+                        <p class="mb-4">You do not have any templates with existing prompts.</p>
+                        <a href="{% url 'content_templates:template_list' %}" class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-[#9810fa] text-white shadow hover:bg-[#9810fa]/90 h-9 px-4 py-2">
+                            Create Template
+                        </a>
+                    </div>
+                {% endif %}
+            </form>
+        </div>
+        
+        <!-- Generated Prompts Tab Content -->
+        <div id="content-prompts" class="tab-content hidden">
+            <p class="text-gray-600 mb-6">Choose a generated prompt to add to your project</p>
+            
+            <form method="post" action="{% url 'prompts:import_generated_prompt' project_id=project.id %}" class="space-y-6" id="prompt-form">
+                {% csrf_token %}
+                
+                {% if generated_prompts %}
+                    <div class="space-y-2">
+                        <label for="prompt-select" class="block text-sm font-medium text-gray-700">Select Generated Prompt</label>
+                        <select id="prompt-select" name="promptId" class="w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-[#9810fa] focus:border-[#9810fa]">
+                            <option value="" disabled selected>Select a Generated Prompt</option>
+                            {% for prompt in generated_prompts %}
+                                <option value="{{ prompt.id }}">{{ prompt.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    
+                    <div class="flex justify-end space-x-3">
+                        <a href="{% url 'projects:project_detail' project_id=project.id %}?tab=prompts" 
+                           class="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 px-4 py-2">
+                            Cancel
+                        </a>
+                        <button type="submit" 
+                                class="btn-main inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-[#9810fa] text-white shadow-sm hover:bg-[#9810fa]/90 h-9 px-4 py-2">
+                            Import Prompt
+                        </button>
+                    </div>
+                {% else %}
+                    <div class="text-center py-6">
+                        <p class="mb-4">You do not have any generated prompts.</p>
+                        <a href="{% url 'prompt_generator:generator' %}" class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-[#9810fa] text-white shadow hover:bg-[#9810fa]/90 h-9 px-4 py-2">
+                            Generate Prompts
+                        </a>
+                    </div>
+                {% endif %}
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const tabButtons = document.querySelectorAll('.tab-button');
+        const tabContents = document.querySelectorAll('.tab-content');
+        
+        tabButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                // Update active tab button styling
+                tabButtons.forEach(btn => {
+                    btn.classList.remove('border-[#9810fa]', 'text-[#9810fa]');
+                    btn.classList.add('border-transparent', 'text-gray-500');
+                });
+                this.classList.remove('border-transparent', 'text-gray-500');
+                this.classList.add('border-[#9810fa]', 'text-[#9810fa]');
+                
+                // Show appropriate content
+                const tabId = this.id;
+                tabContents.forEach(content => {
+                    content.classList.add('hidden');
+                });
+                
+                if (tabId === 'tab-templates') {
+                    document.getElementById('content-templates').classList.remove('hidden');
+                } else if (tabId === 'tab-prompts') {
+                    document.getElementById('content-prompts').classList.remove('hidden');
+                }
+            });
+        });
+    });
+</script>
+{% endblock %}
