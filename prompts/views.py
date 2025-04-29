@@ -200,15 +200,19 @@ def template_selection(request, project_id):
     # Check if this is an error page - error can be passed as a URL parameter
     error = request.GET.get('error')
     
-    # Render the full page template
+    # Check if this is a modal request (via AJAX/HTMX or a query parameter)
+    is_modal = request.headers.get('X-Requested-With') == 'XMLHttpRequest' or request.GET.get('modal') == 'true'
+    
+    # Render the appropriate template based on whether it's a modal or full page
+    template_name = 'prompts/template_selection_modal.html' if is_modal else 'prompts/template_selection_page.html'
+    
     context = {
         'templates': templates,
         'generated_prompts': generated_prompts,
         'project': project,
         'error': error
     }
-    return render(request, 'prompts/template_selection_page.html', context)
-
+    return render(request, template_name, context)
 
 
 @login_required
