@@ -39,6 +39,7 @@ INSTALLED_APPS = [
 # Third-party apps
     'widget_tweaks',
     'tinymce',
+    'compressor',
 # Local apps
     'accounts',
     'projects',
@@ -157,6 +158,17 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # Configure default storage for file uploads
 DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
 STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
+
+# compressor settings
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'compressor.finders.CompressorFinder',
+]
+
+COMPRESS_ENABLED = True
+COMPRESS_CSS_FILTERS = ['compressor.filters.css_default.CssAbsoluteFilter', 'compressor.filters.cssmin.rCSSMinFilter']
+COMPRESS_JS_FILTERS = ['compressor.filters.jsmin.JSMinFilter']
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
