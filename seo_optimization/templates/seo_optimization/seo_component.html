@@ -5,7 +5,7 @@
   <div class="flex justify-between items-center mb-3">
       <h3 class="text-lg font-semibold">SEO Content Inspection</h3>
       {% if content_id %}
-          <a href="{% url 'seo_optimization:analyze_content' content_id=content_id %}" class="text-[#9810fa] text-sm hover:underline">
+          <a href="{% url 'seo_optimization:analyze_content' content_id=content_id %}" class="text-[#005F5F] text-sm hover:underline">
               {% if has_analysis %}
               View Results
               {% else %}
@@ -21,7 +21,7 @@
           <div class="bg-white p-3 rounded border border-gray-200">
             <div class="flex items-center justify-between mb-1">
                 <p class="text-sm font-medium">SEO Score</p>
-                <button type="button" class="seo-help-btn text-gray-500 hover:text-[#9810fa]" title="Learn about SEO Score">
+                <button type="button" class="seo-help-btn text-gray-500 hover:text-[#005F5F]" title="Learn about SEO Score">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
@@ -49,7 +49,7 @@
             <div class="bg-white p-3 rounded border border-gray-200">
                 <div class="flex items-center justify-between mb-1">
                     <p class="text-sm font-medium">Flesch Reading Ease</p>
-                    <button type="button" class="readability-help-btn text-gray-500 hover:text-[#9810fa]" title="Learn about Flesch Reading Ease">
+                    <button type="button" class="readability-help-btn text-gray-500 hover:text-[#005F5F]" title="Learn about Flesch Reading Ease">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
@@ -97,7 +97,7 @@
       <div class="text-center py-4 bg-white rounded border border-gray-200">
           <p class="text-sm text-gray-500">No SEO inspections available.</p>
           {% if content_id %}
-              <a href="{% url 'seo_optimization:analyze_content' content_id=content_id %}" class="mt-2 inline-block text-sm px-3 py-1 bg-[#9810fa] text-white rounded hover:bg-[#9810fa]/90">
+              <a href="{% url 'seo_optimization:analyze_content' content_id=content_id %}" class="mt-2 inline-block text-sm px-3 py-1 bg-[#005F5F] text-white rounded hover:bg-[#005F5F]/90">
                   Inspect Now
               </a>
           {% endif %}

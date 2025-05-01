@@ -18,7 +18,7 @@
             
             <div class="flex justify-center items-center">
                 {% if templates %}
-                    <select id="template-select" class="w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-[#9810fa] focus:border-[#9810fa]">
+                    <select id="template-select" class="w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-[#005F5F] focus:border-[#005F5F]">
                         <option value="" disabled selected>Select a Template</option>
                         {% for template in templates %}
                             <option value="{{ template.id }}">{{ template.title }}</option>
@@ -27,7 +27,7 @@
                 {% else %}
                     <div class="text-center">
                         <p class="mb-4">You do not have any templates with existing prompts.</p>
-                        <a href="{% url 'content_templates:template_list' %}" class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-[#9810fa] text-white shadow hover:bg-[#9810fa]/90 h-9 px-4 py-2">
+                        <a href="{% url 'content_templates:template_list' %}" class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-[#005F5F] text-white shadow hover:bg-[#005F5F]/90 h-9 px-4 py-2">
                             Create Template
                         </a>
                     </div>
@@ -39,7 +39,7 @@
                     Cancel
                 </button>
                 {% if templates %}
-                    <button type="btn-main" id="confirm-template-button" class="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-[#9810fa] text-white shadow-sm hover:bg-[#9810fa]/90 h-9 px-4 py-2" onclick="importSelectedTemplate()">
+                    <button type="btn-main" id="confirm-template-button" class="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-[#005F5F] text-white shadow-sm hover:bg-[#005F5F]/90 h-9 px-4 py-2" onclick="importSelectedTemplate()">
                         Import
                     </button>
                 {% endif %}

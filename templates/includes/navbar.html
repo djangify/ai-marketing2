@@ -6,24 +6,24 @@
   <nav class="max-w-screen-xl mx-auto px-4 lg:px-6 py-3 flex items-center justify-between">
     <!-- Logo -->
     <a href="{% url 'core:index' %}" class="flex items-center">
-      <img src="{% static 'images/amp-trans2.webp' %}" class="h-6 mr-3 sm:h-9" alt="AI Marketing platform logo" />
+      <img src="{% static 'images/amp-logo-icon.webp' %}" class="h-6 mr-3 sm:h-9" alt="AI Marketing platform logo" />
       <span class="text-xl font-semibold whitespace-nowrap dark:text-white">AI Marketing Platform</span>
     </a>
 
     <!-- Navigation links (desktop) -->
     <ul class="hidden lg:flex space-x-8 font-medium items-center">
-      <li><a href="{% url 'core:index' %}" class="py-2 text-gray-700 hover:text-purple-700 dark:text-gray-300 dark:hover:text-white uppercase">HOME</a></li>
-      <li><a href="/#about" class="py-2 text-gray-700 hover:text-purple-700 dark:text-gray-300 dark:hover:text-white uppercase">ABOUT</a></li>
-      <li><a href="/#pricing" class="py-2 text-gray-700 hover:text-purple-700 dark:text-gray-300 dark:hover:text-white uppercase">PRICING</a></li>
-      <li><a href="/#faq" class="py-2 text-gray-700 hover:text-purple-700 dark:text-gray-300 dark:hover:text-white uppercase">FAQ</a></li>
+      <li><a href="{% url 'core:index' %}" class="py-2 text-gray-700 hover:text-teal-900 dark:text-gray-300 dark:hover:text-white uppercase">HOME</a></li>
+      <li><a href="/#about" class="py-2 text-gray-700 hover:text-teal-900 dark:text-gray-300 dark:hover:text-white uppercase">ABOUT</a></li>
+      <li><a href="/#pricing" class="py-2 text-gray-700 hover:text-teal-900 dark:text-gray-300 dark:hover:text-white uppercase">PRICING</a></li>
+      <li><a href="/#faq" class="py-2 text-gray-700 hover:text-teal-900 dark:text-gray-300 dark:hover:text-white uppercase">FAQ</a></li>
     </ul>
 
     <!-- Right controls -->
     <div class="flex items-center space-x-4 lg:space-x-6">
       <!-- Login/Signup (desktop only) -->
       <div class="hidden lg:flex items-center space-x-4">
-        <a href="{% url 'accounts:login' %}" class="text-gray-700 hover:text-purple-700 dark:text-gray-300 dark:hover:text-white uppercase font-medium">Login</a>
-        <a href="{% url 'accounts:signup' %}" class="px-4 py-2 bg-purple-200 text-purple-900 rounded-md font-bold uppercase hover:bg-purple-300 transition-colors">Sign Up</a>
+        <a href="{% url 'accounts:login' %}" class="text-gray-700 hover:text-teal-900 dark:text-gray-300 dark:hover:text-white uppercase font-medium">Login</a>
+        <a href="{% url 'accounts:signup' %}" class="px-4 py-2 shaddow  rounded-md font-bold uppercase  transition-colors">Sign Up</a>
       </div>
 
       

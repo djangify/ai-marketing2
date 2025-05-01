@@ -26,10 +26,10 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {% for keyword in keywords %}
                 {% if keyword.is_primary %}
-                    <div class="bg-white p-4 rounded-lg shadow-sm border-2 border-[#9810fa]">
+                    <div class="bg-white p-4 rounded-lg shadow-sm border-2 border-[#005F5F]">
                         <div class="flex justify-between items-start">
-                            <span class="font-semibold text-[#9810fa]">{{ keyword.keyword }}</span>
-                            <button class="toggle-primary-btn text-[#9810fa] hover:text-[#9810fa]/80" data-keyword-id="{{ keyword.id }}">
+                            <span class="font-semibold text-[#005F5F]">{{ keyword.keyword }}</span>
+                            <button class="toggle-primary-btn text-[#005F5F] hover:text-[#005F5F]/80" data-keyword-id="{{ keyword.id }}">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                                     <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
                                 </svg>
@@ -38,7 +38,7 @@
                             <div class="mt-2 flex items-center">
                             <div class="text-xs text-gray-500 mr-2">Relevance:</div>
                             <div class="flex-grow h-1.5 bg-gray-200 rounded-full">
-                                <div class="h-1.5 rounded-full bg-[#9810fa]" style="width: {{ keyword.relevance_score|floatformat:1|mul:10 }}%;"></div>
+                                <div class="h-1.5 rounded-full bg-[#005F5F]" style="width: {{ keyword.relevance_score|floatformat:1|mul:10 }}%;"></div>
                             </div>
                             <div class="text-xs text-gray-500 ml-2">{{ keyword.relevance_score|floatformat:1 }}</div>
                         </div>
@@ -79,7 +79,7 @@
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="flex items-center">
                                         {% if keyword.is_primary %}
-                                            <span class="bg-[#9810fa] w-2 h-2 rounded-full mr-2" title="Primary keyword"></span>
+                                            <span class="bg-[#005F5F] w-2 h-2 rounded-full mr-2" title="Primary keyword"></span>
                                         {% endif %}
                                         <div class="text-sm font-medium text-gray-900">{{ keyword.keyword }}</div>
                                     </div>
@@ -87,7 +87,7 @@
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="flex items-center">
                                         <div class="h-1.5 w-24 bg-gray-200 rounded-full">
-                                            <div class="h-1.5 rounded-full bg-[#9810fa]" style="width: {{ keyword.relevance_score|floatformat:1|mul:10 }}%;"></div>
+                                            <div class="h-1.5 rounded-full bg-[#005F5F]" style="width: {{ keyword.relevance_score|floatformat:1|mul:10 }}%;"></div>
                                         </div>
                                         <span class="ml-2 text-sm text-gray-500">{{ keyword.relevance_score|floatformat:1 }}</span>
                                     </div>
@@ -99,7 +99,7 @@
                                     {{ keyword.created_at|date:"M d, Y" }}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                    <button class="toggle-primary-btn text-[#9810fa] hover:text-[#9810fa]/80" data-keyword-id="{{ keyword.id }}">
+                                    <button class="toggle-primary-btn text-[#005F5F] hover:text-[#005F5F]/80" data-keyword-id="{{ keyword.id }}">
                                         {% if keyword.is_primary %}
                                             Remove Primary
                                         {% else %}

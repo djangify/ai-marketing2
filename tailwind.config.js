@@ -5,14 +5,14 @@ export default {
     "./templates/**/*.html",
     "./*/templates/**/*.html",
     "./static/**/*.js",
-    "./node_modules/flowbite/**/*.js",
+
   ],
   theme: {
     extend: {
       colors: {
-        main: "#9810fa",
-        secondary: "#8C8391",
-        accent: "#E6C5EB",
+        main: "#005F5F",
+        secondary: "#20b2aa",
+        accent: "#E6F2E6",
       },
       fontFamily: {
         sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
@@ -20,6 +20,8 @@ export default {
     },
   },
   plugins: [
-    require('flowbite/plugin'),
+    require('@tailwindcss/forms'),
+    require('@tailwindcss/typography'),
+    require('@tailwindcss/aspect-ratio'),
   ],
 };

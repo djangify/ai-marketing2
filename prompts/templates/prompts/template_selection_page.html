@@ -19,7 +19,7 @@
         <!-- Tabs Navigation -->
         <div class="border-b border-gray-200 mb-6">
             <nav class="flex -mb-px space-x-6" aria-label="Tabs">
-                <button id="tab-templates" class="tab-button border-[#9810fa] text-[#9810fa] border-b-2 py-2 px-1 text-sm font-medium" aria-current="page">
+                <button id="tab-templates" class="tab-button border-[#005F5F] text-[#005F5F] border-b-2 py-2 px-1 text-sm font-medium" aria-current="page">
                     Templates
                 </button>
                 <button id="tab-prompts" class="tab-button border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 border-b-2 py-2 px-1 text-sm font-medium">
@@ -45,7 +45,7 @@
                 {% if templates %}
                     <div class="space-y-2">
                         <label for="template-select" class="block text-sm font-medium text-gray-700">Select Template</label>
-                        <select id="template-select" name="templateId" class="w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-[#9810fa] focus:border-[#9810fa]">
+                        <select id="template-select" name="templateId" class="w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-[#005F5F] focus:border-[#005F5F]">
                             <option value="" disabled selected>Select a Template</option>
                             {% for template in templates %}
                                 <option value="{{ template.id }}">{{ template.title }}</option>
@@ -59,14 +59,14 @@
                             Cancel
                         </a>
                         <button type="submit" 
-                                class="btn-main inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-[#9810fa] text-white shadow-sm hover:bg-[#9810fa]/90 h-9 px-4 py-2">
+                                class="btn-main inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-[#005F5F] text-white shadow-sm hover:bg-[#005F5F]/90 h-9 px-4 py-2">
                             Import Template
                         </button>
                     </div>
                 {% else %}
                     <div class="text-center py-6">
                         <p class="mb-4">You do not have any templates with existing prompts.</p>
-                        <a href="{% url 'content_templates:template_list' %}" class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-[#9810fa] text-white shadow hover:bg-[#9810fa]/90 h-9 px-4 py-2">
+                        <a href="{% url 'content_templates:template_list' %}" class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-[#005F5F] text-white shadow hover:bg-[#005F5F]/90 h-9 px-4 py-2">
                             Create Template
                         </a>
                     </div>
@@ -84,7 +84,7 @@
                 {% if generated_prompts %}
                     <div class="space-y-2">
                         <label for="prompt-select" class="block text-sm font-medium text-gray-700">Select Generated Prompt</label>
-                        <select id="prompt-select" name="promptId" class="w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-[#9810fa] focus:border-[#9810fa]">
+                        <select id="prompt-select" name="promptId" class="w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-[#005F5F] focus:border-[#005F5F]">
                             <option value="" disabled selected>Select a Generated Prompt</option>
                             {% for prompt in generated_prompts %}
                                 <option value="{{ prompt.id }}">{{ prompt.name }}</option>
@@ -98,14 +98,14 @@
                             Cancel
                         </a>
                         <button type="submit" 
-                                class="btn-main inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-[#9810fa] text-white shadow-sm hover:bg-[#9810fa]/90 h-9 px-4 py-2">
+                                class="btn-main inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-[#005F5F] text-white shadow-sm hover:bg-[#005F5F]/90 h-9 px-4 py-2">
                             Import Prompt
                         </button>
                     </div>
                 {% else %}
                     <div class="text-center py-6">
                         <p class="mb-4">You do not have any generated prompts.</p>
-                        <a href="{% url 'prompt_generator:generator' %}" class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-[#9810fa] text-white shadow hover:bg-[#9810fa]/90 h-9 px-4 py-2">
+                        <a href="{% url 'prompt_generator:generator' %}" class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-[#005F5F] text-white shadow hover:bg-[#005F5F]/90 h-9 px-4 py-2">
                             Generate Prompts
                         </a>
                     </div>
@@ -124,11 +124,11 @@
             button.addEventListener('click', function() {
                 // Update active tab button styling
                 tabButtons.forEach(btn => {
-                    btn.classList.remove('border-[#9810fa]', 'text-[#9810fa]');
+                    btn.classList.remove('border-[#005F5F]', 'text-[#005F5F]');
                     btn.classList.add('border-transparent', 'text-gray-500');
                 });
                 this.classList.remove('border-transparent', 'text-gray-500');
-                this.classList.add('border-[#9810fa]', 'text-[#9810fa]');
+                this.classList.add('border-[#005F5F]', 'text-[#005F5F]');
                 
                 // Show appropriate content
                 const tabId = this.id;

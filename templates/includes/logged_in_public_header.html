@@ -13,12 +13,12 @@
           <!-- Navigation Links (Desktop) -->
           <div class="hidden md:flex md:items-center">
               <nav class="flex items-center space-x-8 mr-8">
-                  <a href="/documentation/" class="text-gray-700 hover:text-[#9810fa] font-medium px-2 py-1 {% if '/documentation/' in request.path %}text-[#9810fa]{% endif %}">Documentation</a>
-                  <a href="/blog/" class="text-gray-700 hover:text-[#9810fa] font-medium px-2 py-1 {% if '/blog/' in request.path %}text-[#9810fa]{% endif %}">Blog</a>
+                  <a href="/documentation/" class="text-gray-700 hover:text-[#005F5F] font-medium px-2 py-1 {% if '/documentation/' in request.path %}text-[#005F5F]{% endif %}">Documentation</a>
+                  <a href="/blog/" class="text-gray-700 hover:text-[#005F5F] font-medium px-2 py-1 {% if '/blog/' in request.path %}text-[#005F5F]{% endif %}">Blog</a>
               </nav>
               
               <div class="flex items-center space-x-5">
-                  <a href="{% url 'accounts:dashboard' %}" class="bg-[#9810fa] text-white font-medium rounded-lg px-5 py-2 hover:bg-[#9810fa]/90 transition-colors">
+                  <a href="{% url 'accounts:dashboard' %}" class="bg-[#005F5F] text-white font-medium rounded-lg px-5 py-2 hover:bg-[#005F5F]/90 transition-colors">
                       Back to Dashboard
                   </a>
                   
@@ -26,11 +26,11 @@
                   <div class="relative" x-data="{ open: false }">
                       <button 
                           type="button" 
-                          class="flex items-center text-gray-700 hover:text-[#9810fa]"
+                          class="flex items-center text-gray-700 hover:text-[#005F5F]"
                           id="user-menu-button"
                           @click="open = !open"
                       >
-                          <div class="h-8 w-8 rounded-full bg-[#9810fa]/10 flex items-center justify-center text-[#9810fa] mr-2">
+                          <div class="h-8 w-8 rounded-full bg-[#005F5F]/10 flex items-center justify-center text-[#005F5F] mr-2">
                               <span class="font-medium">{{ user.username.0|upper }}</span>
                           </div>
                           <span class="font-medium mr-1 hidden sm:inline">{{ user.username }}</span>
@@ -66,8 +66,8 @@
       <!-- Mobile Menu (hidden by default) -->
       <div class="hidden md:hidden pb-3" id="mobile-menu">
           <nav class="space-y-2">
-              <a href="/documentation/" class="block py-2 px-4 text-gray-700 hover:bg-gray-100 rounded-md {% if '/documentation/' in request.path %}text-[#9810fa] font-medium{% endif %}">Documentation</a>
-              <a href="/blog/" class="block py-2 px-4 text-gray-700 hover:bg-gray-100 rounded-md {% if '/blog/' in request.path %}text-[#9810fa] font-medium{% endif %}">Blog</a>
+              <a href="/documentation/" class="block py-2 px-4 text-gray-700 hover:bg-gray-100 rounded-md {% if '/documentation/' in request.path %}text-[#005F5F] font-medium{% endif %}">Documentation</a>
+              <a href="/blog/" class="block py-2 px-4 text-gray-700 hover:bg-gray-100 rounded-md {% if '/blog/' in request.path %}text-[#005F5F] font-medium{% endif %}">Blog</a>
               <a href="{% url 'accounts:dashboard' %}" class="block py-2 px-4 text-gray-700 hover:bg-gray-100 rounded-md">Dashboard</a>
               <a href="{% url 'accounts:profile' %}" class="block py-2 px-4 text-gray-700 hover:bg-gray-100 rounded-md">Profile</a>
               <a href="{% url 'accounts:logout' %}" class="block py-2 px-4 text-gray-700 hover:bg-gray-100 rounded-md">Sign out</a>

@@ -30,7 +30,7 @@
                             <div class="relative w-24 h-24">
                                 <svg class="w-24 h-24 transform -rotate-90" viewBox="0 0 100 100">
                                     <circle class="text-gray-200" stroke-width="8" stroke="currentColor" fill="transparent" r="40" cx="50" cy="50"/>
-                                    <circle class="text-[#9810fa]" stroke-width="8" stroke="currentColor" fill="transparent" r="40" cx="50" cy="50"
+                                    <circle class="text-[#005F5F]" stroke-width="8" stroke="currentColor" fill="transparent" r="40" cx="50" cy="50"
                                         stroke-dasharray="251.2" stroke-dashoffset="{{ avg_score.seo_score|default:0|floatformat:0|add:251.2|add:-250|floatformat:0 }}"/>
                                 </svg>
                                 <div class="absolute top-0 left-0 w-full h-full flex items-center justify-center">
@@ -122,7 +122,7 @@
                                     {{ analysis.created_at|date:"M d, Y" }}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                    <a href="{% url 'seo_optimization:analysis_detail' analysis_id=analysis.id %}" class="text-[#9810fa] hover:text-[#9810fa]/80">View</a>
+                                    <a href="{% url 'seo_optimization:analysis_detail' analysis_id=analysis.id %}" class="text-[#005F5F] hover:text-[#005F5F]/80">View</a>
                                 </td>
                             </tr>
                         {% endfor %}

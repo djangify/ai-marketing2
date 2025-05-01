@@ -33,13 +33,13 @@
         {% if templates %}
             {% for template in templates %}
                 <a href="{% url 'content_templates:template_detail' template_id=template.id %}" class="block">
-                    <div class="bg-gray-50 border border-gray-200 rounded-xl shadow-sm p-6 hover:border-[#9810fa] hover:scale-[1.01] hover:shadow-md hover:text-[#9810fa] transition-all duration-300">
+                    <div class="bg-gray-50 border border-gray-200 rounded-xl shadow-sm p-6 hover:border-[#005F5F] hover:scale-[1.01] hover:shadow-md hover:text-[#005F5F] transition-all duration-300">
                         <h2 class="text-xl lg:text-2xl font-bold truncate pr-4 mb-2">
                             {{ template.title }}
                         </h2>
                         <div class="flex items-center text-gray-500 text-sm">
                             <span class="truncate">{{ template.prompt_count }} prompts</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" class="text-[#9810fa] flex-shrink-0 h-4 w-4 mx-2" viewBox="0 0 20 20" fill="currentColor">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="text-[#005F5F] flex-shrink-0 h-4 w-4 mx-2" viewBox="0 0 20 20" fill="currentColor">
                                 <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
                             </svg>
                             <span class="truncate">Updated {{ template.updated_at|timesince }} ago</span>
