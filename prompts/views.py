@@ -188,9 +188,9 @@ def import_generated_prompt(request, project_id):
         else:
             return redirect(reverse('prompts:template_selection', kwargs={'project_id': project.id}) + f"?error={error_message}")
 
-
 @login_required
 def template_selection(request, project_id):
+    """View for template selection - always using the full page template"""
     project = get_object_or_404(Project, id=project_id, user=request.user)
     templates = Template.objects.filter(user=request.user)
     
@@ -200,19 +200,15 @@ def template_selection(request, project_id):
     # Check if this is an error page - error can be passed as a URL parameter
     error = request.GET.get('error')
     
-    # Check if this is a modal request (via AJAX/HTMX or a query parameter)
-    is_modal = request.headers.get('X-Requested-With') == 'XMLHttpRequest' or request.GET.get('modal') == 'true'
-    
-    # Render the appropriate template based on whether it's a modal or full page
-    template_name = 'prompts/template_selection_modal.html' if is_modal else 'prompts/template_selection_page.html'
-    
+    # Always use the page template with full layout
     context = {
         'templates': templates,
         'generated_prompts': generated_prompts,
         'project': project,
         'error': error
     }
-    return render(request, template_name, context)
+    
+    return render(request, 'prompts/template_selection_page.html', context)
 
 
 @login_required
