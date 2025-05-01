@@ -151,17 +151,17 @@
     Our support team is ready to assist you with any questions that aren't covered in our documentation.
 
     <div class="flex flex-wrap text-gray-600 gap-4 my-8">
-      <a href="mailto:admin@aimarketingplatform.app" class="flex items-center px-6 py-3 bg-gray-100 rounded-lg text-gray-800 font-medium hover:bg-gray-200 transition-colors">
+      <a href="{% url 'core:contact_us' %}" class="flex items-center px-6 py-3 bg-gray-100 rounded-lg text-gray-800 font-medium hover:bg-gray-200 transition-colors">
         <i class="fa-solid fa-envelope mr-4"></i> 
         Email Support
       </a>
       
-      <a href="#" class="flex items-center px-6 py-3 bg-gray-100 rounded-lg text-gray-800 font-medium hover:bg-gray-200 transition-colors">
+      {% comment %} <a href="#" class="flex items-center px-6 py-3 bg-gray-100 rounded-lg text-gray-800 font-medium hover:bg-gray-200 transition-colors">
         <i class="fa-solid fa-headset mr-4"></i>
-        Live Chat
-      </a>
+        Live Chat - coming soon!
+      </a> {% endcomment %}
       
-      <a href="#" class="flex items-center px-6 py-3 bg-gray-100 rounded-lg text-gray-800 font-medium hover:bg-gray-200 transition-colors">
+      <a href="{% url 'core:contact_us' %}" class="flex items-center px-6 py-3 bg-gray-100 rounded-lg text-gray-800 font-medium hover:bg-gray-200 transition-colors">
         <i class="fa-solid fa-ticket mr-4"></i>
         Submit Ticket
       </a>
@@ -176,13 +176,13 @@
         <p class="text-gray-600">The prompt generator is now complete and contains over 50 templates to help you with your projects.</p>
       </div>
       
-      <div class="border-l-4 border-purple-700 pl-4 mb-6">
+      <div class="border-l-4 border-[#005F5F] pl-4 mb-6">
         <span class="text-sm text-gray-500">March 28, 2025</span>
         <h4 class="font-semibold my-1">Batch Export Feature</h4>
         <p class="text-gray-600">You can now export multiple content pieces at once.</p>
       </div>
       
-      <div class="border-l-4 bg-main pl-4 mb-6">
+      <div class="border-l-4 border-[#005F5F] pl-4 mb-6">
         <span class="text-sm text-gray-500">March 15, 2025</span>
         <h4 class="font-semibold my-1">New Audio Processing Engine</h4>
         <p class="text-gray-600">We've improved our audio transcription technology for better accuracy.</p>
