@@ -21,7 +21,39 @@
         </button>
         
     </div>
-    <p class="font-semibold text-red-700 sm:text-sm dark:text-red-700">**IMPORTANT! Download any existing content BEFORE hitting the 'Generate Content' button so you don't lose it.** </p>
+    <p class="font-semibold text-red-700 sm:text-sm dark:text-red-700 mb-4">**IMPORTANT! Download any existing content BEFORE hitting the 'Generate Content' button so you don't lose it.** </p>
+    <div class="mt-4 ">
+        <label class="block text-sm font-medium text-gray-700 mb-2">Language Preference</label>
+        <div class="flex items-center space-x-4">
+            <label class="inline-flex items-center">
+                <input type="radio" 
+                       name="language_preference" 
+                       value="us" 
+                       {% if project.language_preference == 'us' %}checked{% endif %}
+                       class="form-radio h-4 w-4 text-[#005F5F] transition duration-150 ease-in-out"
+                       hx-post="{% url 'projects:update_language_preference' project_id=project.id %}"
+                       hx-trigger="change"
+                       hx-vals='{"language": "us"}'
+                       hx-target="#language-feedback"
+                       hx-swap="innerHTML">
+                <span class="ml-2">US English</span>
+            </label>
+            <label class="inline-flex items-center">
+                <input type="radio" 
+                       name="language_preference" 
+                       value="uk" 
+                       {% if project.language_preference == 'uk' %}checked{% endif %}
+                       class="form-radio h-4 w-4 text-[#005F5F] transition duration-150 ease-in-out"
+                       hx-post="{% url 'projects:update_language_preference' project_id=project.id %}"
+                       hx-trigger="change"
+                       hx-vals='{"language": "uk"}'
+                       hx-target="#language-feedback"
+                       hx-swap="innerHTML">
+                <span class="ml-2">UK English</span>
+            </label>
+        </div>
+        <div id="language-feedback" class="mt-1 text-sm text-gray-500"></div>
+    </div>
     <!-- Loading indicator -->
     <div id="loading-indicator" class="htmx-indicator flex justify-center my-4">
         <svg class="animate-spin h-5 w-5 text-main" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">

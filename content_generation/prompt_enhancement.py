@@ -113,6 +113,27 @@ For email structure:
 Create content that encourages opens, reads, and the desired conversion action.
 """
 
+    # Language instruction templates
+    UK_ENGLISH_INSTRUCTION = """
+Use UK English spelling conventions throughout the content. For example:
+- Use 'colour' not 'color'
+- Use 'organise' not 'organize'  
+- Use 'centre' not 'center'
+- Use 'travelling' not 'traveling'
+- Use 'programme' not 'program' (except for computer programs)
+- Use 'licence' (noun) and 'license' (verb)
+"""
+
+    US_ENGLISH_INSTRUCTION = """
+Use US English spelling conventions throughout the content. For example:
+- Use 'color' not 'colour'
+- Use 'organize' not 'organise'
+- Use 'center' not 'centre'
+- Use 'traveling' not 'travelling'
+- Use 'program' not 'programme'
+- Use 'license' for both noun and verb
+"""
+
     # Template mapping by content type
     TEMPLATES = {
         "general": GENERAL_TEMPLATE,
@@ -122,7 +143,7 @@ Create content that encourages opens, reads, and the desired conversion action.
     }
     
     @classmethod
-    def enhance_prompt(cls, user_prompt, content_type="general", asset_content=None):
+    def enhance_prompt(cls, user_prompt, content_type="general", asset_content=None, language_preference="us"):
         """
         Enhance a user prompt with appropriate templates and context
         
@@ -130,6 +151,7 @@ Create content that encourages opens, reads, and the desired conversion action.
             user_prompt (str): The user's original prompt
             content_type (str): Type of content to generate (general, blog, social, email)
             asset_content (str, optional): Content from assets to include in the prompt
+            language_preference (str): Language preference ('us' or 'uk')
             
         Returns:
             dict: Enhanced prompt messages for the OpenAI API
@@ -139,6 +161,12 @@ Create content that encourages opens, reads, and the desired conversion action.
             content_type = "general"
             
         system_message = cls.TEMPLATES[content_type.lower()]
+        
+        # Add language instruction to system message
+        if language_preference == "uk":
+            system_message += "\n\n" + cls.UK_ENGLISH_INSTRUCTION
+        else:
+            system_message += "\n\n" + cls.US_ENGLISH_INSTRUCTION
         
         # Create the user message with context
         if asset_content:
@@ -190,4 +218,3 @@ Use the following prompt to generate content:
         
         # Default to general if no specific type detected
         return "general"
-    

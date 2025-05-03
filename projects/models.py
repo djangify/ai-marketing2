@@ -9,6 +9,12 @@ class Project(models.Model):
     keywords = models.TextField(blank=True, help_text="Comma-separated keywords to guide AI content generation")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    language_preference = models.CharField(
+        max_length=10, 
+        choices=[('us', 'US English'), ('uk', 'UK English')],
+        default='us',
+        help_text="Choose spelling preference for generated content"
+    )
     
     def __str__(self):
         return self.title

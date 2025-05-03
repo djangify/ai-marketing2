@@ -20,7 +20,7 @@ class OpenAIService:
             logger.warning(f"Failed to load AI config: {e}")
             self.config = None
 
-    def generate_content(self, prompt_text, content_source, content_type="general", max_retries=2):
+    def generate_content(self, prompt_text, content_source, content_type="general", language_preference="us", max_retries=2):
         primary = self.config.model_name if self.config else "gpt-4o"
         fallback = self.config.fallback_model if self.config else "gpt-3.5-turbo"
         temp = self.config.temperature if self.config else 0.7
@@ -28,7 +28,8 @@ class OpenAIService:
         messages = PromptEnhancer.enhance_prompt(
             user_prompt=prompt_text,
             content_type=content_type,
-            asset_content=content_source
+            asset_content=content_source,
+            language_preference=language_preference
         )
         for attempt in range(max_retries + 1):
             for model in (primary, fallback):
@@ -123,7 +124,8 @@ class GenerationManager:
                 text = self.openai_service.generate_content(
                     prompt_text=prompt.prompt,
                     content_source=content_src,
-                    content_type=ctype
+                    content_type=ctype,
+                    language_preference=project.language_preference
                 )
                 GeneratedContent.objects.create(
                     project=project,

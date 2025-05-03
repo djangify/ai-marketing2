@@ -6,6 +6,8 @@ from .models import Project
 from .forms import ProjectForm
 from .models import Project
 from subscriptions.utils import subscription_required
+from django.http import HttpResponse
+from django.views.decorators.http import require_POST
 
 
 @login_required
@@ -199,3 +201,17 @@ def project_delete(request, project_id):
         return redirect('projects:project_list')
     
     return render(request, 'projects/project_confirm_delete.html', {'project': project})
+
+@login_required
+@require_POST
+def update_language_preference(request, project_id):
+    """Update the language preference for a project"""
+    project = get_object_or_404(Project, id=project_id, user=request.user)
+    language = request.POST.get('language', 'us')
+    
+    if language in ['us', 'uk']:
+        project.language_preference = language
+        project.save()
+        return HttpResponse(f'Language preference updated to {"US" if language == "us" else "UK"} English')
+    
+    return HttpResponse('Invalid language preference', status=400)

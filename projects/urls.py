@@ -11,6 +11,7 @@ urlpatterns = [
     path('<uuid:project_id>/', views.project_detail, name='project_detail'),
     path('<uuid:project_id>/update/', views.project_update, name='project_update'),
     path('<uuid:project_id>/delete/', views.project_delete, name='project_delete'),
+    path('<uuid:project_id>/update-language-preference/', views.update_language_preference, name='update_language_preference'),
     
     # AJAX endpoints
     path('api/<uuid:project_id>/generate-content/', ajax_views.generate_content, name='generate_content'),
