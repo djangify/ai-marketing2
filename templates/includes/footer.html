@@ -55,7 +55,11 @@
                         <a href="{% url 'docs:documentation' %}" class="hover:underline">Documentation</a>
                     </li>
                     <li class="mb-4">
-                        <a href="{% url 'accounts:logout' %}" class="hover:underline">Logout</a>
+                        {% if user.is_authenticated %}
+                            <a href="{% url 'accounts:logout' %}" class="hover:underline">Logout</a>
+                        {% else %}
+                            <a href="{% url 'accounts:login' %}" class="hover:underline">Login</a>
+                        {% endif %}
                     </li>
                 </ul>
             </div>

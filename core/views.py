@@ -1,4 +1,5 @@
 # core/views.py
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
@@ -145,3 +146,39 @@ def contact_us(request):
         form = ContactMessageForm()
     
     return render(request, 'core/contact_form.html', {'form': form})
+
+def handler404(request, exception):
+    """Custom 404 error page"""
+    return render(request, 'errors/404.html', status=404)
+
+def handler500(request):
+    """Custom 500 error page"""
+    return render(request, 'errors/500.html', status=500)
+
+def handler403(request, exception):
+    """Custom 403 error page"""
+    return render(request, 'errors/403.html', status=403)
+
+# In core/views.py
+def robots_txt(request):
+    """Serve robots.txt file"""
+    lines = [
+        "User-agent: *",
+        "Disallow: /admin/",
+        "Disallow: /dashboard/",
+        "Disallow: /projects/",
+        "Disallow: /assets/",
+        "Disallow: /prompts/",
+        "Disallow: /content-generation/",
+        "Disallow: /templates/",
+        "Disallow: /seo-optimization/",
+        "Disallow: /prompt-generator/",
+        "Disallow: /documentation/",
+        "Allow: /",
+        "Allow: /blog/",
+        "Allow: /quick_start/",
+        "Allow: /policies/",
+        "",
+        f"Sitemap: {request.build_absolute_uri('/sitemap.xml')}"
+    ]
+    return HttpResponse("\n".join(lines), content_type="text/plain")
