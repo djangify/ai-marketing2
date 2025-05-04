@@ -8,20 +8,21 @@ from django.utils.text import slugify
 from django.utils import timezone
 from django.views.decorators.http import require_POST, require_http_methods
 from django.views.decorators.csrf import csrf_exempt
+from .tasks import process_generation_job
 
 import openai
-import threading
 import json
+import logging  # Add this import
+import io
+import zipfile
 
 from projects.models import Project, GeneratedContent
 from .models import ContentGenerationJob, AIConfig
 from .services import GenerationManager
-
-
-import io
-import zipfile
-
 from .utils import generate_docx
+
+# Add this line to create the logger
+logger = logging.getLogger(__name__)
 
 generation_manager = GenerationManager()
 
@@ -176,24 +177,22 @@ def start_generation(request, project_id):
             }, status=400)
         
         # Run generation in background thread
-        def run_generation():
-            try:
-                if job and job.id:
-                    generation_manager.process_generation_job(job.id)
-                else:
-                    print("Error: job or job.id is None in run_generation")
-            except Exception as e:
-                # Update job with error if generation fails
-                if job:
-                    job.status = 'failed'
-                    job.error_message = str(e)
-                    job.completed_at = timezone.now()
-                    job.save()
-                print(f"Error in generation thread: {str(e)}")
-        
-        thread = threading.Thread(target=run_generation)
-        thread.daemon = True  # Make thread a daemon so it doesn't block server shutdown
-        thread.start()
+        try:
+            process_generation_job.delay(job.id)
+            logger.info(f"Started Celery task for job {job.id}")
+        except Exception as e:
+            logger.error(f"Failed to start Celery task: {str(e)}")
+            job.status = 'failed'
+            job.error_message = f"Failed to start background task: {str(e)}"
+            job.completed_at = timezone.now()
+            job.save()
+            
+            messages.error(request, f"Failed to start content generation: {str(e)}")
+            return JsonResponse({
+                'success': False,
+                'error': str(e)
+            }, status=500)
+
         
         messages.info(request, 'Content generation started. This may take a few minutes.')
         

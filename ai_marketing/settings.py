@@ -3,6 +3,8 @@ import os
 from django.urls import reverse_lazy
 import environ
 import pymysql 
+import ssl
+from urllib.parse import urlparse
 
 
 pymysql.install_as_MySQLdb()
@@ -212,4 +214,31 @@ CACHES = {
         'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
         'LOCATION': 'unique-snowflake',
     }
+}
+
+
+# Get Redis URL from environment
+REDIS_URL = env('REDIS_URL', default='redis://localhost:6379/0')
+
+# If using Upstash (rediss://), we need to configure SSL properly
+if REDIS_URL.startswith('redis://default'):
+    # Parse the original URL
+    parsed = urlparse(REDIS_URL)
+    
+    # Construct the proper Upstash URL
+    CELERY_BROKER_URL = f"rediss://{parsed.username}:{parsed.password}@{parsed.hostname}:{parsed.port}/0?ssl_cert_reqs=none"
+    CELERY_RESULT_BACKEND = CELERY_BROKER_URL
+else:
+    CELERY_BROKER_URL = REDIS_URL
+    CELERY_RESULT_BACKEND = REDIS_URL
+
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'UTC'
+CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = True
+
+# Additional Redis settings for Upstash
+CELERY_REDIS_BACKEND_USE_SSL = {
+    'ssl_cert_reqs': None
 }
