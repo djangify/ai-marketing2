@@ -14,7 +14,7 @@ from projects.models import Project
 from .utils import create_asset_processing_job, determine_process_function
 from django.contrib import messages
 from subscriptions.utils import subscription_required
-
+from assets.tasks import process_uploaded_file
 
 @login_required
 @subscription_required
@@ -177,11 +177,15 @@ def asset_upload(request, project_id):
                         content="[Content not available due to encoding issues]",
                         token_count=0,
                     )
-                
+
                 # Create processing job for audio and video files
                 if file_type in ['audio', 'video']:
-                    create_asset_processing_job(asset, project)
+                    job = create_asset_processing_job(asset, project)
                     print(f"Created processing job for asset: {asset.id}")
+                    
+                    # Start Celery task to process the file
+                    process_uploaded_file.delay(str(job.id))
+                    print(f"Started Celery task for processing job: {job.id}")
                 else:
                     # For text files, mark as completed
                     AssetProcessingJob.objects.create(
