@@ -45,6 +45,9 @@ class Subscription(models.Model):
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='subscription_profile')
     signup_date = models.DateTimeField(default=timezone.now)
+    trial_reminder_3_days_sent = models.BooleanField(default=False)
+    trial_reminder_1_day_sent = models.BooleanField(default=False)
+    trial_ended_email_sent = models.BooleanField(default=False)
     
     def __str__(self):
         return f"{self.user.username}'s Subscription Profile"

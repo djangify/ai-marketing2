@@ -130,40 +130,52 @@ def send_trial_ended_notification(user_id):
 def check_and_send_trial_reminders():
     """Check for trials ending soon and send appropriate reminders"""
     from django.contrib.auth import get_user_model
-    from subscriptions.models import SubscriptionProfile
+    from subscriptions.models import UserProfile
+    from datetime import timedelta
     
     User = get_user_model()
     today = timezone.now().date()
     
-    # Check for trials ending in 3 days
-    three_days_from_now = today + timedelta(days=3)
-    users_3_days = User.objects.filter(
-        subscription_profile__trial_end_date__date=three_days_from_now,
-        subscription_profile__trial_reminder_3_days_sent=False
-    )
+    # We need to handle this differently since trial_end_date is calculated
+    # Get all users with profiles
+    users_with_profiles = User.objects.filter(subscription_profile__isnull=False)
     
+    # Check each user's trial end date
+    users_3_days = []
+    users_1_day = []
+    users_ended_today = []
+    
+    for user in users_with_profiles:
+        profile = user.subscription_profile
+        trial_end_date = profile.get_trial_end_date().date()
+        
+        # Check for trials ending in 3 days
+        if trial_end_date == today + timedelta(days=3):
+            if not hasattr(profile, 'trial_reminder_3_days_sent') or not profile.trial_reminder_3_days_sent:
+                users_3_days.append(user)
+        
+        # Check for trials ending in 1 day
+        elif trial_end_date == today + timedelta(days=1):
+            if not hasattr(profile, 'trial_reminder_1_day_sent') or not profile.trial_reminder_1_day_sent:
+                users_1_day.append(user)
+        
+        # Check for trials that ended today
+        elif trial_end_date == today:
+            if not hasattr(profile, 'trial_ended_email_sent') or not profile.trial_ended_email_sent:
+                users_ended_today.append(user)
+    
+    # Send reminders for users with trials ending in 3 days
     for user in users_3_days:
         send_trial_ending_reminder.delay(user.id, 3)
     
-    # Check for trials ending in 1 day
-    one_day_from_now = today + timedelta(days=1)
-    users_1_day = User.objects.filter(
-        subscription_profile__trial_end_date__date=one_day_from_now,
-        subscription_profile__trial_reminder_1_day_sent=False
-    )
-    
+    # Send reminders for users with trials ending in 1 day
     for user in users_1_day:
         send_trial_ending_reminder.delay(user.id, 1)
     
-    # Check for trials that ended today
-    users_ended_today = User.objects.filter(
-        subscription_profile__trial_end_date__date=today,
-        subscription_profile__trial_ended_email_sent=False
-    )
-    
+    # Send trial ended notifications
     for user in users_ended_today:
         send_trial_ended_notification.delay(user.id)
         user.subscription_profile.trial_ended_email_sent = True
         user.subscription_profile.save()
     
-    return f"Processed trial reminders: {users_3_days.count()} (3-day), {users_1_day.count()} (1-day), {users_ended_today.count()} (ended)"
+    return f"Processed trial reminders: {len(users_3_days)} (3-day), {len(users_1_day)} (1-day), {len(users_ended_today)} (ended)"

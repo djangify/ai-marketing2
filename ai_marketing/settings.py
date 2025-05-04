@@ -216,7 +216,7 @@ CACHES = {
     }
 }
 
-
+SITE_URL = os.environ.get('SITE_URL', 'http://localhost:8000')
 # Get Redis URL from environment
 REDIS_URL = env('REDIS_URL', default='redis://localhost:6379/0')
 
