@@ -1,0 +1,27 @@
+{% extends "subscriptions/emails/base_email.html" %}
+
+{% block content %}
+<h2>Welcome to AI Marketing Platform!</h2>
+
+<p>Hi {{ user.first_name|default:user.username }},</p>
+
+<p>Thank you for subscribing to AI Marketing Platform! We're excited to have you on board.</p>
+
+<p>With your subscription, you now have access to:</p>
+<ul>
+    <li>Unlimited projects</li>
+    <li>AI-powered content generation</li>
+    <li>SEO optimization tools</li>
+    <li>Content templates library</li>
+</ul>
+
+<p>Ready to get started?</p>
+
+<p style="text-align: center;">
+    <a href="{{ site_url }}{% url 'accounts:dashboard' %}" class="button">Go to Dashboard</a>
+</p>
+
+<p>If you have any questions, feel free to reach out to our support team.</p>
+
+<p>Best regards,<br>The AI Marketing Platform Team</p>
+{% endblock %}

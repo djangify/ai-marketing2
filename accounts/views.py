@@ -14,7 +14,9 @@ from assets.models import Asset
 from prompts.utils.token_helper import formatTokens
 from prompts.utils.token_tracker import get_prompt_tokens_used, ensure_token_usage_exists
 import mimetypes
+from subscriptions.tasks import send_subscription_email
 from content_generation.utils import generate_docx
+
 
 def signup_view(request):
     if request.method == 'POST':
@@ -22,6 +24,10 @@ def signup_view(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
+            
+            # Send trial welcome email for new users
+            send_subscription_email.delay('trial_welcome', user.id)
+            
             messages.success(request, "Account created successfully! Welcome to AI Marketing Platform.")
             return redirect('accounts:dashboard')
     else:

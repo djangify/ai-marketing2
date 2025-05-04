@@ -7,7 +7,7 @@ from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 from django.utils import timezone
-
+from .tasks import send_subscription_email
 from prompts.utils.token_tracker import reset_token_usage
 
 from .models import Subscription
@@ -63,6 +63,9 @@ def checkout_success(request):
             session = stripe.checkout.Session.retrieve(session_id)
             subscription_id = session.subscription
             
+            # Get the Stripe subscription to check if it's a trial conversion
+            stripe_subscription = stripe.Subscription.retrieve(subscription_id)
+            
             # Update user's subscription in our database
             subscription, created = Subscription.objects.update_or_create(
                 user=request.user,
@@ -73,6 +76,10 @@ def checkout_success(request):
                     'start_date': timezone.now(),
                 }
             )
+            
+            # Only send welcome email if this is a new paid subscription (not trial conversion)
+            if created and stripe_subscription.status == 'active' and not stripe_subscription.trial_end:
+                send_subscription_email.delay('welcome', request.user.id)
             
             return render(request, 'subscriptions/checkout_success.html')
         except Exception as e:
@@ -148,17 +155,29 @@ def handle_subscription_created(event):
             )
         
         subscription.save()
+        
+        # Send welcome email ONLY for paid subscriptions (not trials)
+        if subscription_data['status'] == 'active' and not subscription_data.get('trial_end'):
+            send_subscription_email.delay('welcome', subscription.user.id)
+        
     except Subscription.DoesNotExist:
         # Subscription not found in our database
         pass
+
 
 def handle_subscription_updated(event):
     """Handle subscription updated webhook event"""
     subscription_data = event['data']['object']
     subscription_id = subscription_data['id']
+    previous_attributes = event['data'].get('previous_attributes', {})
     
     try:
         subscription = Subscription.objects.get(stripe_subscription_id=subscription_id)
+        
+        # Check if this is a trial conversion (trial_end changed to None)
+        was_trial = previous_attributes.get('trial_end') is not None
+        is_active = subscription_data['status'] == 'active'
+        trial_ended = subscription_data.get('trial_end') is None
         
         # Update subscription status
         subscription.payment_status = subscription_data['status']
@@ -171,6 +190,11 @@ def handle_subscription_updated(event):
             )
         
         subscription.save()
+        
+        # Send welcome email only for trial-to-paid conversions
+        if was_trial and is_active and trial_ended:
+            send_subscription_email.delay('welcome', subscription.user.id)
+    
     except Subscription.DoesNotExist:
         # Subscription not found in our database
         pass
@@ -184,6 +208,7 @@ def handle_subscription_deleted(event):
         subscription = Subscription.objects.get(stripe_subscription_id=subscription_id)
         subscription.payment_status = 'canceled'
         subscription.save()
+        send_subscription_email.delay('subscription_cancelled', subscription.user.id)
     except Subscription.DoesNotExist:
         # Subscription not found in our database
         pass
@@ -223,6 +248,7 @@ def handle_payment_failed(event):
             subscription = Subscription.objects.get(stripe_subscription_id=subscription_id)
             subscription.payment_status = 'past_due'
             subscription.save()
+            send_subscription_email.delay('payment_failed', subscription.user.id)
         except Subscription.DoesNotExist:
             # Subscription not found in our database
             pass
@@ -372,6 +398,7 @@ def handle_subscription_renewed(event):
         # Reset token usage for the user
         from prompts.utils.token_tracker import reset_token_usage
         reset_token_usage(user)
+        send_subscription_email.delay('renewal_success', subscription.user.id)
         
     except Subscription.DoesNotExist:
         # Subscription not found in our database
