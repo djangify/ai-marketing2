@@ -5,6 +5,7 @@ import environ
 import pymysql 
 import ssl
 from urllib.parse import urlparse
+from celery.schedules import crontab
 
 
 pymysql.install_as_MySQLdb()
@@ -14,13 +15,9 @@ environ.Env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 SECRET_KEY = os.environ.get("SECRET_KEY")
-
 DEBUG = True
-
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'localhost:8000']
-
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost",
     "http://127.0.0.1",
@@ -29,7 +26,6 @@ CSRF_TRUSTED_ORIGINS = [
 
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -40,8 +36,9 @@ INSTALLED_APPS = [
     'subscriptions.apps.SubscriptionsConfig',
 # Third-party apps
     'widget_tweaks',
+    'django_celery_results',
     'tinymce',
-    'compressor',
+    
 # Local apps
     'accounts',
     'projects',
@@ -152,37 +149,26 @@ USE_TZ = True
 # Media and Static files (CSS, JavaScript, Images)
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-# Configure default storage for file uploads
-DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
-STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
-
-# compressor settings
 STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    'compressor.finders.CompressorFinder',
 ]
 
-COMPRESS_ENABLED = True
-COMPRESS_CSS_FILTERS = ['compressor.filters.css_default.CssAbsoluteFilter', 'compressor.filters.cssmin.rCSSMinFilter']
-COMPRESS_JS_FILTERS = ['compressor.filters.jsmin.JSMinFilter']
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Stripe settings
-# Stripe settings
 STRIPE_PUBLISHABLE_KEY = env('STRIPE_PUBLISHABLE_KEY', default='pk_test_placeholder')
 STRIPE_SECRET_KEY = env('STRIPE_SECRET_KEY', default='sk_test_placeholder')
 STRIPE_WEBHOOK_SECRET = env('STRIPE_WEBHOOK_SECRET', default='whsec_placeholder')
-STRIPE_PRICE_ID_MONTHLY = env('STRIPE_PRICE_ID_MONTHLY', default='price_1RBA24BSytWSX0dbNigRddaw')
-STRIPE_PRICE_ID_QUARTERLY = env('STRIPE_PRICE_ID_QUARTERLY', default='price_1RBA5nBSytWSX0db0aRqPViR')
-STRIPE_PRICE_ID_YEARLY = env('STRIPE_PRICE_ID_YEARLY', default='price_1RBA7sBSytWSX0dbLcfpVxKw')
+STRIPE_PRICE_ID_MONTHLY = env('STRIPE_PRICE_ID_MONTHLY', default='price_1RHL24BSytWSX0dbjJFz6BQO')
+STRIPE_PRICE_ID_QUARTERLY = env('STRIPE_PRICE_ID_QUARTERLY', default='price_1RHL4KBSytWSX0db7cIwLiDc')
+STRIPE_PRICE_ID_YEARLY = env('STRIPE_PRICE_ID_YEARLY', default='price_1RHL63BSytWSX0dbfT6OzPq4')
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
@@ -200,10 +186,6 @@ REST_FRAMEWORK = {
     ],
 }
 
-# Node.js processing service settings
-PROCESSING_SERVICE_URL = os.environ.get('PROCESSING_SERVICE_URL')
-PROCESSING_SERVICE_API_KEY = os.environ.get('PROCESSING_SERVICE_API_KEY')
-
 # OpenAI API settings
 OPENAI_API_KEY = os.environ.get('OPENAI_API_KEY')
 OPENAI_DEFAULT_MODEL = 'gpt-4o'
@@ -216,29 +198,28 @@ CACHES = {
     }
 }
 
-SITE_URL = os.environ.get('SITE_URL', 'http://localhost:8000')
-# Get Redis URL from environment
-REDIS_URL = env('REDIS_URL', default='redis://localhost:6379/0')
+REDIS_URL = env('REDIS_URL')
 
-# If using Upstash (rediss://), we need to configure SSL properly
-if REDIS_URL.startswith('redis://default'):
-    # Parse the original URL
-    parsed = urlparse(REDIS_URL)
-    
-    # Construct the proper Upstash URL
-    CELERY_BROKER_URL = f"rediss://{parsed.username}:{parsed.password}@{parsed.hostname}:{parsed.port}/0?ssl_cert_reqs=none"
-    CELERY_RESULT_BACKEND = CELERY_BROKER_URL
-else:
-    CELERY_BROKER_URL = REDIS_URL
-    CELERY_RESULT_BACKEND = REDIS_URL
+# 1) Point both broker and result backend at the same (rediss://) URL:
+CELERY_BROKER_URL      = REDIS_URL
+CELERY_RESULT_BACKEND  = REDIS_URL
 
-CELERY_ACCEPT_CONTENT = ['json']
-CELERY_TASK_SERIALIZER = 'json'
-CELERY_RESULT_SERIALIZER = 'json'
-CELERY_TIMEZONE = 'UTC'
+# 2) Tell Celery to require real certs on *both* broker *and* backend:
+CELERY_BROKER_USE_SSL         = {
+    'ssl_cert_reqs': ssl.CERT_REQUIRED,
+}
+CELERY_REDIS_BACKEND_USE_SSL  = {
+    'ssl_cert_reqs': ssl.CERT_REQUIRED,
+}
+
+# 3) The rest stays as you already have it:
+CELERY_ACCEPT_CONTENT               = ['json']
+CELERY_TASK_SERIALIZER              = 'json'
+CELERY_RESULT_SERIALIZER            = 'json'
+CELERY_TIMEZONE                     = 'UTC'
 CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = True
 
-# Additional Redis settings for Upstash
-CELERY_REDIS_BACKEND_USE_SSL = {
-    'ssl_cert_reqs': None
-}
+SITE_URL = env(
+    'SITE_URL',
+    default='http://localhost:8000'
+)

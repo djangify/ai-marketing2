@@ -1,9 +1,14 @@
 import os
 from celery import Celery
 from celery.schedules import crontab
+from django.conf import settings
+import django
 
 # Set the default Django settings module for the 'celery' program.
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'ai_marketing.settings')
+
+# Setup Django
+django.setup()
 
 app = Celery('ai_marketing')
 
@@ -12,8 +17,11 @@ app = Celery('ai_marketing')
 app.config_from_object('django.conf:settings', namespace='CELERY')
 
 # Load task modules from all registered Django apps.
-app.autodiscover_tasks()
+app.autodiscover_tasks(lambda: settings.INSTALLED_APPS)
 
+@app.task(bind=True)
+def debug_task(self):
+    print(f'Request: {self.request!r}')
 
 app.conf.beat_schedule = {
     'check-trial-reminders': {

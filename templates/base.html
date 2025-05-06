@@ -1,5 +1,5 @@
 {% load static %}
-{% load compress %}
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -21,10 +21,10 @@
     <link rel="icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon" />
     <title>AI Marketing Platform</title>
     
-    {% compress css %}
+    
     <link href="{% static 'css/styles.css' %}" rel="stylesheet" />
     <link href="{% static 'css/output.css' %}" rel="stylesheet" />
-    {% endcompress %}
+    
     {% block extra_meta %}{% endblock %}
   </head>
   <body class="flex flex-col min-h-screen bg-white dark:bg-gray-900 transition-all duration-300">
