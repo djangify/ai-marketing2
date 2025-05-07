@@ -14,7 +14,7 @@
         <a href="{% url 'accounts:dashboard' %}" 
            class="w-full justify-start hover:text-[#005F5F] hover:bg-gray-200 flex items-center text-md font-medium py-2 px-4 rounded-lg {% if request.path == '/dashboard/' %}bg-gray-200 text-[#005F5F]{% endif %}">
           <span class="mr-3">
-            <i class="fas fa-home h-[18px] w-[18px]"></i>
+            <img src="{% static 'images/home.svg' %}" alt="home icon" class="h-4 w-4 inline-block ">
           </span>
           <span>Dashboard</span>
         </a>
@@ -23,7 +23,7 @@
           <a href="{% url 'projects:project_detail' project_id=project.id %}?tab=upload" 
             class="w-full justify-start hover:text-[#005F5F] hover:bg-gray-200 flex items-center text-md font-medium py-2 px-4 rounded-lg {% if request.resolver_match.url_name == 'project_detail' and request.GET.tab == 'upload' %}bg-gray-200 text-[#005F5F]{% endif %}">
             <span class="mr-3">
-              <i class="fas fa-file-upload h-[18px] w-[18px]"></i>
+              <img src="{% static 'images/assets.svg' %}" alt="home icon" class="h-4 w-4 inline-block ">
             </span>
             <span>Project Assets</span>
           </a>
@@ -31,7 +31,7 @@
           <a href="{% url 'assets:all_assets' %}" 
             class="w-full justify-start hover:text-[#005F5F] hover:bg-gray-200 flex items-center text-md font-medium py-2 px-4 rounded-lg {% if request.resolver_match.url_name == 'all_assets' %}bg-gray-200 text-[#005F5F]{% endif %}">
             <span class="mr-3">
-              <i class="fas fa-file-upload h-[18px] w-[18px]"></i>
+              <img src="{% static 'images/assets.svg' %}" alt="home icon" class="h-4 w-4 inline-block ">
             </span>
             <span>Project Assets</span>
           </a>
@@ -40,7 +40,7 @@
         <a href="{% url 'projects:project_list' %}" 
            class="w-full justify-start hover:text-[#005F5F] hover:bg-gray-200 flex items-center text-md font-medium py-2 px-4 rounded-lg {% if '/projects/' in request.path %}bg-gray-200 text-[#005F5F]{% endif %}">
           <span class="mr-3">
-            <i class="fas fa-project-diagram h-[18px] w-[18px]"></i>
+            <img src="{% static 'images/projects.svg' %}" alt="home icon" class="h-4 w-4 inline-block ">
           </span>
           <span>Projects</span>
         </a>
@@ -48,7 +48,7 @@
         <a href="{% url 'content_templates:template_list' %}" 
            class="w-full justify-start hover:text-[#005F5F] hover:bg-gray-200 flex items-center text-md font-medium py-2 px-4 rounded-lg {% if '/templates/' in request.path %}bg-gray-200 text-[#005F5F]{% endif %}">
           <span class="mr-3">
-            <i class="fas fa-file-alt h-[18px] w-[18px]"></i>
+            <img src="{% static 'images/templates.svg' %}" alt="home icon" class="h-4 w-4 inline-block ">
           </span>
           <span>Templates</span>
         </a>
@@ -56,7 +56,7 @@
         <a href="{% url 'prompt_generator:generator' %}" 
            class="w-full justify-start hover:text-[#005F5F] hover:bg-gray-200 flex items-center text-md font-medium py-2 px-4 rounded-lg {% if '/generator/' in request.path %}bg-gray-200 text-[#005F5F]{% endif %}">
           <span class="mr-3">
-            <i class="fa-solid fa-folder-plus h-[18px] w-[18px]"></i>
+            <img src="{% static 'images/generator.svg' %}" alt="home icon" class="h-4 w-4 inline-block ">
           </span>
           <span>Generator</span>
         </a>
@@ -64,7 +64,7 @@
         <a href="{% url 'seo_optimization:keyword_tracking' %}" 
            class="w-full justify-start hover:text-[#005F5F] hover:bg-gray-200 flex items-center text-md font-medium py-2 px-4 rounded-lg {% if '/seo/' in request.path %}bg-gray-200 text-[#005F5F]{% endif %}">
           <span class="mr-3">
-            <i class="fas fa-chart-line h-[18px] w-[18px]"></i>
+            <img src="{% static 'images/seo.svg' %}" alt="home icon" class="h-4 w-4 inline-block ">
           </span>
           <span>SEO</span>
         </a>
@@ -72,7 +72,7 @@
         <a href="{% url 'accounts:member_resources' %}" 
            class="w-full justify-start hover:text-[#005F5F] hover:bg-gray-200 flex items-center text-md font-medium py-2 px-4 rounded-lg {% if '/member_resources/' in request.path %}bg-gray-200 text-[#005F5F]{% endif %}">
           <span class="mr-3">
-            <i class="fa-solid fa-book-open-reader h-[18px] w-[18px]"></i>
+            <img src="{% static 'images/resources.svg' %}" alt="home icon" class="h-4 w-4 inline-block ">
           </span>
           <span>Resources</span>
         </a>
@@ -80,7 +80,7 @@
         <a href="{% url 'accounts:profile' %}" 
            class="w-full justify-start hover:text-[#005F5F] hover:bg-gray-200 flex items-center text-md font-medium py-2 px-4 rounded-lg {% if request.path == '/accounts/profile/' %}bg-gray-200 text-[#005F5F]{% endif %}">
           <span class="mr-3">
-            <i class="fas fa-cog h-[18px] w-[18px]"></i>
+            <img src="{% static 'images/settings.svg' %}" alt="home icon" class="h-4 w-4 inline-block ">
           </span>
           <span>Settings</span>
         </a>

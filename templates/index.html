@@ -1,12 +1,49 @@
 {% extends 'base.html' %}
 {% load static %}
 
-
 {% block title %}AI Marketing Platform - Save Time with AI-Generated Content{% endblock %}
 
 {% block content %}
-{% include "includes/hero.html" %}
 
+<!-- Start block: navbar -->
+<!-- Start block -->
+
+
+<!-- End navbar -->
+<!-- End block: navbar -->
+
+<!-- Start block: Hero -->
+<!-- Start block -->
+<section class="mt-16 bg-gray-50 dark:bg-gray-900">
+  <div class="grid max-w-screen-xl px-4 pt-20 pb-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12 lg:pt-28">
+      <div class="mr-auto place-self-center lg:col-span-7">
+          <h1 class="max-w-2xl mb-4 text-4xl font-semibold leading-none tracking-tight md:text-5xl xl:text-6xl dark:text-teal-900">AI Marketing Assistant</h1>
+          <p class="max-w-2xl mb-6 font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400">
+            Our AI-powered marketing assistant helps you turn raw ideas, reviews, transcripts, and more into structured content for social media, blogs, emails, onboarding, and beyond. Say goodbye to writers block or hours spent editing. Just upload your text, audio, or video and let our AI handle the rest. 
+          </p>
+          <p class="max-w-2xl mb-6 font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400">
+            Thanks to our pre-built templates and intuitive features you will be up and running quickly. Plus, you get to keep all your marketing data in one place.
+          </p>
+          <div class="space-y-4 sm:flex sm:space-y-0 sm:space-x-4">
+            <div class="w-full flex justify-center mt-4">
+              <a href="{% url 'accounts:signup' %}" class="btn-main flex items-center justify-center gap-2 text-white font-medium py-3 px-6 rounded-lg shadow-md transition duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-50">
+                <span class="text-base sm:text-lg">Get Started</span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clip-rule="evenodd" />
+                </svg>
+              </a>
+            </div>
+          </div>
+      </div>
+      <div class="hidden lg:mt-0 lg:col-span-5 lg:flex">
+          <img src="{% static 'images/aimarketing-home.webp' %}" alt="AI marketing hero image">
+      </div>                
+  </div>
+</section>
+<!-- End block -->
+<!-- End block: Hero -->
+
+<!-- Start block: Smart Content -->
 <!-- Start block -->
 <section id="about" class="bg-white dark:bg-gray-900">
 <div class="items-center max-w-screen-xl px-4 py-8 mx-auto lg:grid lg:grid-cols-4 lg:gap-16 xl:gap-24 lg:py-24 lg:px-6">
@@ -60,14 +97,359 @@
 </div>
 </section>
 <!-- End block -->
+<!-- End block: Smart Content -->
 
-{% include "includes/collaborate.html" %}
-
-{% include "includes/pricing.html" %}
-
-{% include "includes/faq.html" %}
+<!-- Start block: Collaborate -->
+<!-- Start block -->
+<section class="bg-gray-50 dark:bg-gray-800">
+  <div class="max-w-screen-xl px-4 py-8 mx-auto space-y-12 lg:space-y-20 lg:py-24 lg:px-6">
+      <!-- Row -->
+      <div class="items-center gap-8 lg:grid lg:grid-cols-2 xl:gap-16">
+          <div class="text-gray-500 sm:text-lg dark:text-gray-400">
+              <h2 class="mb-4 text-3xl font-semibold tracking-tight text-gray-900 dark:text-white">The Future Is Collaborative</h2>
+              <p class="mb-8 font-light lg:text-xl">Creating and repurposing content is time-consuming. Our platform transforms this process, helping you maintain your authentic voice while producing more content in less time.</p>
+              <!-- List -->
+              <ul role="list" class="pt-8 space-y-5 border-t border-gray-200 my-7 dark:border-gray-700">
+                  <li class="flex space-x-3">
+                      <!-- Icon -->
+                      <svg class="flex-shrink-0 w-5 h-5 text-teal-900 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                      <span class="text-base font-medium leading-tight text-gray-900 dark:text-white">Turn one piece of content into multiple formats</span>
+                  </li>
+                  <li class="flex space-x-3">
+                      <!-- Icon -->
+                      <svg class="flex-shrink-0 w-5 h-5 text-teal-900 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                      <span class="text-base font-medium leading-tight text-gray-900 dark:text-white">Save hours on content repurposing</span>
+                  </li>
+                  <li class="flex space-x-3">
+                      <!-- Icon -->
+                      <svg class="flex-shrink-0 w-5 h-5 text-teal-900 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                      <span class="text-base font-medium leading-tight text-gray-900 dark:text-white">Transform webinars and videos into engaging blog posts</span>
+                  </li>
+                  <li class="flex space-x-3">
+                    <svg class="flex-shrink-0 w-5 h-5 text-teal-900 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                    <span class="text-base font-medium leading-tight text-gray-900 dark:text-white">Generate fresh social posts from long-form articles</span>
+                  </li>
+              </ul>
+              <p class="mb-8 font-light lg:text-xl">Learning to work alongside AI is the key to modern content creation—without sacrificing the human touch that makes your brand unique.</p>
+          </div>
+          <img class="hidden w-full mb-4 rounded-lg lg:mb-0 lg:flex" src="{% static 'images/dashboard-teal.webp' %}" loading="lazy" alt="dashboard interface">
+      </div>
+      <!-- Row -->
+      <div class="items-center gap-8 lg:grid lg:grid-cols-2 xl:gap-16">
+          <img class="hidden w-full mb-4 rounded-lg lg:mb-0 lg:flex" src="{% static 'images/feature-2.webp' %}" loading="lazy" alt="prompt">
+          <div class="text-gray-500 sm:text-lg dark:text-gray-400">
+              <h2 class="mb-4 text-3xl font-semibold tracking-tight text-gray-900 dark:text-white">Transform Your Content Creation Process</h2>
+              <p class="mb-8 font-light lg:text-xl">Our platform isn't about replacing your voice—it's about amplifying it. Upload your existing content and watch as our AI Marketing Assistant helps you repurpose it across multiple channels, saving you countless hours.</p>
+              <!-- List -->
+              <ul role="list" class="pt-8 space-y-5 border-t border-gray-200 my-7 dark:border-gray-700">
+                  <li class="flex space-x-3">
+                      <!-- Icon -->
+                      <svg class="flex-shrink-0 w-5 h-5 text-teal-900 dark:text-teal-900" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                      <span class="text-base font-medium leading-tight text-gray-900 dark:text-white">Intelligent <a href="blog/introducing-the-prompt-generator/" class="text-primary">prompt generator</a> for better results</span>
+                  </li>
+                  <li class="flex space-x-3">
+                      <!-- Icon -->
+                      <svg class="flex-shrink-0 w-5 h-5 text-teal-900 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                      <span class="text-base font-medium leading-tight text-gray-900 dark:text-white">Guided prompts for blogs, emails and social media</span>
+                  </li>
+                  <li class="flex space-x-3">
+                      <!-- Icon -->
+                      <svg class="flex-shrink-0 w-5 h-5 text-teal-900 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                      <span class="text-base font-medium leading-tight text-gray-900 dark:text-white">Streamlined content repurposing workflow</span>
+                  </li>
+                  
+                  <li class="flex space-x-3">
+                      <!-- Icon -->
+                      <svg class="flex-shrink-0 w-5 h-5 text-teal-900 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                      <span class="text-base font-medium leading-tight text-gray-900 dark:text-white">Tools to repurpose content assets across channels</span>
+                  </li>
+              </ul>
+              <p class="font-light lg:text-xl">The AI Marketing Assistant doesn't replace your creativity—it enhances it, letting you create more content while maintaining the unique voice that connects with your audience.</p>
+          </div>
+      </div>
+  </div>
 </section>
 <!-- End block -->
-</body>
-</html>
+<!-- End block: Collaborate -->
+
+<!-- Start block: Pricing -->
+ <!-- Start block -->
+ <section id="pricing" class="bg-white dark:bg-gray-900">
+    <div class="max-w-screen-xl px-4 py-8 mx-auto lg:py-16 lg:px-6">
+        <div class="max-w-screen-md mx-auto text-center mb-8 lg:mb-12">
+            <h2 class="mb-4 text-3xl font-semibold tracking-tight text-gray-900 dark:text-white">Choose Monthly, Quarterly Or Yearly</h2>
+            <p class="mb-5 font-light text-gray-500 sm:text-xl dark:text-gray-400">Pricing designed to fit all budgets. Save when you pay quarterly and yearly.</p>
+        </div>
+        <div class="space-y-8 lg:grid lg:grid-cols-3 sm:gap-6 xl:gap-10 lg:space-y-0">
+            <!-- Pricing Card -->
+            <div class="flex flex-col mx-auto max-w-md h-full text-center text-gray-900 bg-white border border-gray-100 rounded-lg shadow dark:border-gray-600 xl:p-8 dark:bg-gray-800 dark:text-white">
+                <h2 class="mb-4 text-3xl font-semibold">Monthly</h3>
+                <p class="font-light text-gray-500 sm:text-lg dark:text-gray-400 min-h-[4rem]">Why not try us on for size. Flexible & commitment-free.</p>
+                <div class="flex items-baseline justify-center my-8">
+                    <span class="mr-2 text-3xl font-semibold">£19.99</span>
+                    <span class="text-gray-500 dark:text-gray-400">/month</span>
+                </div>
+                <!-- List -->
+                <ul role="list" class="mb-8 space-y-4 text-left">
+                    <li class="flex items-center space-x-3">
+                        <!-- Icon -->
+                        <svg class="flex-shrink-0 w-5 h-5 text-teal-900 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                        <span>Unlimited Projects</span>
+                    </li>
+                    <li class="flex items-center space-x-3">
+                        <!-- Icon -->
+                        <svg class="flex-shrink-0 w-5 h-5 text-teal-900 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                        <span>Unlimited Storage</span>
+                    </li>
+                    <li class="flex items-center space-x-3">
+                        <!-- Icon -->
+                        <svg class="flex-shrink-0 w-5 h-5 text-teal-900 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                        <span>Unlimited Templates</span>
+                    </li>
+                    <li class="flex items-center space-x-3">
+                        <!-- Icon -->
+                        <svg class="flex-shrink-0 w-5 h-5 text-teal-900 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                        <span>Premium Support</span>
+                    </li>
+                    <li class="flex items-center space-x-3">
+                        <!-- Icon -->
+                        <svg class="flex-shrink-0 w-5 h-5 text-teal-900 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                        <span>Free Updates</span>
+                    </li>
+                </ul>
+                <div class="flex justify-center mt-auto">
+                    <a href="{% url 'accounts:signup' %}" class="btn-main text-white focus:ring-4 focus:ring-purple-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:text-white dark:focus:ring-purple-900 w-full sm:w-auto sm:px-8">Get started</a>
+                </div>
+            </div>
+            <!-- Pricing Card -->
+            <div class="flex flex-col mx-auto max-w-md h-full text-center text-gray-900 bg-white border border-gray-100 rounded-lg shadow dark:border-gray-600 xl:p-8 dark:bg-gray-800 dark:text-white">
+                <h2 class="mb-4 text-3xl font-semibold">Quarterly</h2>
+                <p class="font-light text-gray-500 sm:text-lg dark:text-gray-400 min-h-[4rem]"><span class="shaddow font-bold text-teal-900 px-2 py-1 rounded bg-purple-100 dark:bg-purple-900  dark:text-purple-300">SAVE 15%</span> Best value short-term plan. Balance savings and flexibility.</p>
+                <div class="flex items-baseline justify-center my-8">
+                    <span class="mr-2 text-3xl font-semibold">£50.97</span>
+                    <span class="text-gray-500 dark:text-gray-400">/quarter</span>
+                </div>
+                <!-- List -->
+                <ul role="list" class="mb-8 space-y-4 text-left">
+                    <li class="flex items-center space-x-3">
+                        <!-- Icon -->
+                        <svg class="flex-shrink-0 w-5 h-5 text-teal-900 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                        <span>Unlimited Projects</span>
+                    </li>
+                    <li class="flex items-center space-x-3">
+                        <!-- Icon -->
+                        <svg class="flex-shrink-0 w-5 h-5 text-teal-900 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                        <span>Unlimited Storage</span>
+                    </li>
+                    <li class="flex items-center space-x-3">
+                        <!-- Icon -->
+                        <svg class="flex-shrink-0 w-5 h-5 text-teal-900 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                        <span>Unlimited Templates</span>
+                    </li>
+                    <li class="flex items-center space-x-3">
+                        <!-- Icon -->
+                        <svg class="flex-shrink-0 w-5 h-5 text-teal-900 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                        <span>Premium Support</span>
+                    </li>
+                    <li class="flex items-center space-x-3">
+                        <!-- Icon -->
+                        <svg class="flex-shrink-0 w-5 h-5 text-teal-900 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                        <span>Free Updates</span>
+                    </li>
+                </ul>
+                <div class="flex justify-center mt-auto">
+                    <a href="{% url 'accounts:signup' %}" class="btn-main text-white focus:ring-4 focus:ring-purple-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:text-white dark:focus:ring-purple-900 w-full sm:w-auto sm:px-8">Get started</a>
+                </div>
+            </div>
+            <!-- Pricing Card -->
+            <div class="flex flex-col mx-auto max-w-md h-full text-center text-gray-900 bg-white border border-gray-100 rounded-lg shadow dark:border-gray-600 xl:p-8 dark:bg-gray-800 dark:text-white">
+                <h2 class="mb-4 text-3xl font-semibold">Yearly</h2>
+                <p class="font-light text-gray-500 sm:text-lg dark:text-gray-400 min-h-[4rem]"><span class="font-bold px-2 py-1 rounded bg-purple-100 dark:bg-purple-900 text-teal-900 dark:text-purple-300 shaddow">SAVE 25%</span> Marketing pros go yearly. Invest once, win all year.</p>
+                <div class="flex items-baseline justify-center my-8">
+                    <span class="mr-2 text-3xl font-semibold">£179.91</span>
+                    <span class="text-gray-500 dark:text-gray-400">/year</span>
+                </div>
+                <!-- List -->
+                <ul role="list" class="mb-8 space-y-4 text-left">
+                    <li class="flex items-center space-x-3">
+                        <!-- Icon -->
+                        <svg class="flex-shrink-0 w-5 h-5 text-teal-900 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                        <span>Unlimited Projects</span>
+                    </li>
+                    <li class="flex items-center space-x-3">
+                        <!-- Icon -->
+                        <svg class="flex-shrink-0 w-5 h-5 text-teal-900 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                        <span>Unlimited Storage</span>
+                    </li>
+                    <li class="flex items-center space-x-3">
+                        <!-- Icon -->
+                        <svg class="flex-shrink-0 w-5 h-5 text-teal-900 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                        <span>Unlimited Templates</span>
+                    </li>
+                    <li class="flex items-center space-x-3">
+                        <!-- Icon -->
+                        <svg class="flex-shrink-0 w-5 h-5 text-teal-900 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                        <span>Premium Support</span>
+                    </li>
+                    <li class="flex items-center space-x-3">
+                        <!-- Icon -->
+                        <svg class="flex-shrink-0 w-5 h-5 text-teal-900 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                        <span>Free Updates</span>
+                    </li>
+                </ul>
+                <div class="flex justify-center mt-auto">
+                    <a href="{% url 'accounts:signup' %}" class="btn-main text-white focus:ring-4 focus:ring-purple-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:text-white dark:focus:ring-purple-900 w-full sm:w-auto sm:px-8">Get started</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End block -->
+<!-- End block: Pricing -->
+
+<!-- Start free trial section -->
+<section class="bg-gray-50 dark:bg-gray-800 py-12">
+    <div class="max-w-screen-xl px-4 mx-auto text-center">
+        <h2 class="mb-4 text-3xl font-semibold leading-tight tracking-tight text-gray-900 dark:text-white">Start your free trial today</h2>
+        <p class="mb-6 font-light text-gray-500 dark:text-gray-400 md:text-lg">Try our AI Marketing Platform free for three days. No credit card required.</p> 
+        <a href="{% url 'accounts:signup' %}" class=" btn-main text-white   focus:ring-4  font-medium rounded-lg text-sm px-5 py-2.5 inline-block   focus:outline-none ">Start Your Free 3-day trial</a>
+    </div>
+</section>
+<!-- End free trial section -->
+
+<!-- Start block: FAQ -->
+<!-- Start block -->
+<section id="faq" class="bg-gray-50 dark:bg-gray-800 mt-16">
+    <div class="max-w-screen-xl px-4 py-8 mx-auto lg:pb-24 lg:px-6">
+      <h2 class="mb-4 text-3xl font-semibold tracking-tight text-gray-900 dark:text-white text-center">Frequently Asked Questions</h2>
+      <div class="max-w-screen-md mx-auto">
+        <div class="space-y-2">
+          <!-- Question 1 -->
+          <div class="bg-white dark:bg-gray-700 rounded-lg overflow-hidden">
+            <button class="accordion-header reset-button-style w-full flex justify-between items-center p-6 font-medium text-left text-gray-900 dark:text-white focus:outline-none" data-target="accordion-body-1">
+              <span class="text-lg">How do I upload my content to the platform?</span>
+              <svg class="accordion-icon h-6 w-6 transform text-gray-500 dark:text-gray-300 transition-transform duration-200" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+              </svg>
+            </button>
+            <div id="accordion-body-1" class="accordion-content hidden border-t border-gray-200 dark:border-gray-600">
+              <div class="p-6">
+                <p class="text-gray-500 dark:text-gray-400">Simply click on the 'Upload Media' button and select the text, audio, or video files you want to upload. Our platform supports a variety of formats, making it easy to get your content ready for processing.</p>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Question 2 -->
+          <div class="bg-white dark:bg-gray-700 rounded-lg overflow-hidden">
+            <button class="accordion-header reset-button-style w-full flex justify-between items-center p-6 font-medium text-left text-gray-900 dark:text-white focus:outline-none" data-target="accordion-body-2">
+              <span class="text-lg">How does the AI summarize my content?
+              </span>
+              <svg class="accordion-icon h-6 w-6 transform text-gray-500 dark:text-gray-300 transition-transform duration-200" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+              </svg>
+            </button>
+            <div id="accordion-body-2" class="accordion-content hidden border-t border-gray-200 dark:border-gray-600">
+              <div class="p-6">
+                <p class="text-gray-500 dark:text-gray-400">After you upload your content, our AI analyzes the text, audio, or video to identify key points and generate a concise summary. This summary helps you quickly grasp the main ideas of your content without going through the entire material.</p>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Question 3 -->
+          <div class="bg-white dark:bg-gray-700 rounded-lg overflow-hidden">
+            <button class="accordion-header reset-button-style w-full flex justify-between items-center p-6 font-medium text-left text-gray-900 dark:text-white focus:outline-none" data-target="accordion-body-3">
+              <span class="text-lg">What are custom prompts, and how do I use them?</span>
+              <svg class="accordion-icon h-6 w-6 transform text-gray-500 dark:text-gray-300 transition-transform duration-200" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+              </svg>
+            </button>
+            <div id="accordion-body-3" class="accordion-content hidden border-t border-gray-200 dark:border-gray-600">
+              <div class="p-6">
+                <p class="mb-4 text-gray-500 dark:text-gray-400">Custom prompts allow you to guide the AI in generating content that aligns with your specific needs. You can add prompts to tailor the output, ensuring it reflects your style, tone, and messaging goals.</p>
+                
+                <p class="mb-2 text-gray-500 dark:text-gray-400">You need to be logged in to use this feature:</p>
+                <ul class="pl-5 text-gray-500 list-disc dark:text-gray-400 space-y-2">
+                  <li><a href="{% url 'accounts:signup' %}" class="text-teal-900 dark:text-purple-500 hover:underline">SIGN UP HERE</a></li>
+                  <li><a href="{% url 'accounts:login' %}" class="text-teal-900 dark:text-purple-500 hover:underline">LOGIN HERE</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Question 4 -->
+          <div class="bg-white dark:bg-gray-700 rounded-lg overflow-hidden">
+            <button class="accordion-header reset-button-style w-full flex justify-between items-center p-6 font-medium text-left text-gray-900 dark:text-white focus:outline-none" data-target="accordion-body-4">
+              <span class="text-lg">What types of marketing materials can the app generate?</span>
+              <svg class="accordion-icon h-6 w-6 transform text-gray-500 dark:text-gray-300 transition-transform duration-200" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+              </svg>
+            </button>
+            <div id="accordion-body-4" class="accordion-content hidden border-t border-gray-200 dark:border-gray-600">
+              <div class="p-6">
+                <p class="text-gray-500 dark:text-gray-400">The app can create a wide range of marketing materials, including social media posts, blog summaries, promotional videos, newsletters, courses, prelaunch, launch, reminder campaigns and more. By analyzing your uploaded content and following your custom prompts, our AI generates materials tailored to your audience and marketing strategy.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>               
+    </div>
+  
+    <!-- Add inline style to override button styles -->
+    <style>
+      /* Reset button styles specifically for accordion buttons */
+      .reset-button-style {
+        background-color: white !important;
+        border: none !important;
+        color: inherit !important;
+        padding: 1.5rem !important;
+      }
+      
+      /* Dark mode support */
+      @media (prefers-color-scheme: dark) {
+        .dark .reset-button-style {
+          background-color: #374151 !important; /* dark:bg-gray-700 */
+        }
+      }
+    </style>
+  </section>
+  <!-- End block -->
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const accordionHeaders = document.querySelectorAll('.accordion-header');
+      
+      accordionHeaders.forEach(header => {
+        header.addEventListener('click', function() {
+          const targetId = this.getAttribute('data-target');
+          const content = document.getElementById(targetId);
+          const icon = this.querySelector('.accordion-icon');
+          
+          // Toggle the content visibility
+          content.classList.toggle('hidden');
+          
+          // Rotate the icon when expanded
+          if (content.classList.contains('hidden')) {
+            icon.classList.remove('rotate-180');
+          } else {
+            icon.classList.add('rotate-180');
+          }
+        });
+      });
+      
+      // Show the first accordion item by default (optional)
+      if (accordionHeaders.length > 0) {
+        accordionHeaders[0].click();
+      }
+    });
+  </script>
+<!-- End block -->
+<!-- End block: FAQ -->
+
+<!-- Start block: footer -->
+<!-- Start block -->
+
+
+<!-- End navbar -->
+<!-- End block: footer -->
+
 {% endblock %}

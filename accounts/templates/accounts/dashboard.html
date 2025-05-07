@@ -100,13 +100,10 @@
                         <i class="fas fa-headset mr-3 text-main"></i> Contact Support
                     </a>
                     <a href="{% url 'core:policies_index' %}" class="flex items-center p-3 bg-white border rounded hover:bg-gray-50">
-                        <i class="fas fa-home mr-3 text-main"></i> Company Policies
+                        <img src="{% static 'images/documentation.svg' %}" alt="home icon" class="h-4 w-4 inline-block "> Company Policies
                     </a>
                 </div>
             </div>
-        </div>
-        <div class="mt-8">
-            {% include "includes/dashboard_tips.html" %}
         </div>
         
     </div>
