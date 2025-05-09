@@ -377,10 +377,12 @@ ai_marketing/               # Main project directory
 Copyright © 2025 Diane Corriette 
 All Rights Reserved.
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE.md)
+
 This software is provided under a proprietary license.  
 You may not use, copy, modify, or distribute any part of it  
 without the express written permission of the copyright holder.
-
+See the [LICENSE.md](LICENSE.md) file for details.
 ## Developer
 Diane Corriette
 @todianedev 
