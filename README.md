@@ -4,7 +4,7 @@
 
 ## Overview
 
-AI Marketing Platform is a comprehensive Django web application designed to streamline and automate content creation for marketing purposes. The platform leverages AI capabilities to transform raw assets (text, PDFs, etc.) into polished marketing content using customizable prompts and templates.
+AI Marketing Platform is a comprehensive Django web application designed to streamline and automate content creation for marketing purposes. The platform leverages AI capabilities to transform raw assets (text, PDFs, etc.) into polished marketing content using customisable prompts and templates.
 
 **Key Value Proposition:** Save hours of content creation time by feeding source materials into our AI system, which generates marketing content tailored to your specific needs and brand voice.
 
@@ -12,7 +12,7 @@ AI Marketing Platform is a comprehensive Django web application designed to stre
 |---------|-------------|
 | Content Generation | Transform source materials into marketing content |
 | Template System | Create reusable prompt collections |
-| Prompt Engineering | Generate optimized prompts via preset templates |
+| Prompt Engineering | Generate optimised prompts via preset templates |
 | SEO Analysis | Analyze content for search engine performance |
 | Token Management | Track usage across a subscription-based model |
 
@@ -31,7 +31,7 @@ AI Marketing Platform is a comprehensive Django web application designed to stre
 ## Features
 
 ### Projects
-Projects serve as containers for organizing your marketing initiatives. Each project contains:
+Projects serve as containers for arranging your marketing initiatives. Each project contains:
 - Source assets (uploaded files)
 - Custom prompts
 - Generated content
@@ -74,14 +74,14 @@ Save collections of prompts for reuse across multiple projects:
 
 ### Prompt Generator
 Create specialized prompts using guided templates:
-- Category-organized prompt templates
+- Category-organised prompt templates
 - Fill-in-the-blank prompt creation
 - Save and reuse generated prompts
 
 [View Prompt Generator Code](prompt_generator/models.py)
 
-### SEO Optimization
-Analyze generated content for search engine performance:
+### SEO Optimisation
+Analyse generated content for search engine performance:
 - Readability scoring
 - Keyword density analysis
 - Meta description generation
@@ -93,7 +93,7 @@ Analyze generated content for search engine performance:
 Token-based system for tracking usage limits:
 - Stripe integration for payment processing
 - Usage monitoring for assets and prompts
-- Subscription tiers with different limits
+- Subscription payment options monthly, quarterly and yearly
 
 [View Subscription Code](accounts/models.py)
 
@@ -103,7 +103,7 @@ The AI Marketing Platform follows a modular Django architecture with the followi
 
 ### Backend
 - **Django Web Framework**: Core application structure
-- **MariaDB Database**: Data storage (optimized for cPanel hosting)
+- **MariaDB Database**: Data storage (optimised for cPanel hosting)
 - **Celery**: Background task processing for asset handling and content generation
 - **Redis**: Message broker for Celery tasks and caching
 
@@ -121,7 +121,7 @@ The AI Marketing Platform follows a modular Django architecture with the followi
 2. Assets are processed to extract text content
 3. User creates or imports prompts
 4. Content generation combines assets with prompts
-5. Generated content can be analyzed for SEO optimization
+5. Generated content can be analysed for SEO optimisation
 6. User can download, edit or further refine content
 
 ## Installation
@@ -136,7 +136,7 @@ The AI Marketing Platform follows a modular Django architecture with the followi
 
 1. Clone the repository
 ```bash
-git clone https://github.com/yourusername/ai-marketing-platform.git
+git clone https://github.com/djangify/ai-marketing2.git
 cd ai-marketing-platform
 ```
 
@@ -154,19 +154,37 @@ pip install -r requirements.txt
 4. Set up environment variables (create .env file)
 ```
 SECRET_KEY=your_secret_key
+
 DATABASE_NAME=your_db_name
 DATABASE_USER=your_db_user
 DATABASE_PASSWORD=your_db_password
 DATABASE_HOST=127.0.0.1
 DATABASE_PORT=3306
+
 OPENAI_API_KEY=your_openai_api_key
+
 STRIPE_PUBLISHABLE_KEY=your_stripe_publishable_key
 STRIPE_SECRET_KEY=your_stripe_secret_key
 STRIPE_WEBHOOK_SECRET=your_stripe_webhook_secret
 STRIPE_PRICE_ID_MONTHLY=price_id_here
 STRIPE_PRICE_ID_QUARTERLY=price_id_here
 STRIPE_PRICE_ID_YEARLY=price_id_here
+
 REDIS_URL=redis://localhost:6379/0
+CELERY_BROKER_URL=rediss://default:.upstash.io:6379
+CELERY_RESULT_BACKEND=rediss://defaultA.upstash.io:6379
+
+EMAIL_HOST=localhost
+EMAIL_PORT=25
+EMAIL_USE_TLS=False
+EMAIL_USE_SSL=False
+EMAIL_HOST_USER=admin@yourdomain.com
+EMAIL_HOST_PASSWORD=your_email_password
+DEFAULT_FROM_EMAIL=admin@yourdomain.com
+CONTACT_EMAIL=admin@yourdomain.com
+
+SITE_URL=http://yourdomain.com
+
 ```
 
 5. Run migrations
@@ -281,7 +299,7 @@ MAX_TOKENS_PROMPT = 20000   # Maximum tokens per prompt
 ### SEO Analysis
 1. Generate content for your project
 2. Navigate to the content section
-3. Click "Analyze Content" for SEO insights
+3. Click "Evaluate Content" for SEO insights
 4. View:
    - SEO score
    - Readability metrics
@@ -354,25 +372,14 @@ ai_marketing/               # Main project directory
 └── requirements.txt        # Python dependencies
 ```
 
-## Contributing
-
-We welcome contributions to the AI Marketing Platform! Here's how to get started:
-
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feature-name`
-3. Make your changes and commit: `git commit -m "Add feature"`
-4. Push to the branch: `git push origin feature-name`
-5. Submit a pull request
-
-### Development Guidelines
-- Follow PEP 8 style guidelines
-- Write tests for new features
-- Update documentation when changing functionality
-- Keep pull requests focused on a single feature or bug fix
-
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+Copyright © 2025 Diane Corriette 
+All Rights Reserved.
+
+This software is provided under a proprietary license.  
+You may not use, copy, modify, or distribute any part of it  
+without the express written permission of the copyright holder.
 
 ## Developer
 Diane Corriette
