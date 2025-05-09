@@ -1,6 +1,6 @@
 # AI Marketing Platform
 
-![AI Marketing Platform](https://via.placeholder.com/1200x300/005F5F/FFFFFF?text=AI+Marketing+Platform)
+
 
 ## Overview
 
