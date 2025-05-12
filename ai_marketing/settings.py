@@ -2,13 +2,13 @@ from pathlib import Path
 import os
 from django.urls import reverse_lazy
 import environ
-import pymysql 
+ 
 import ssl
 from urllib.parse import urlparse
 from celery.schedules import crontab
 
 
-pymysql.install_as_MySQLdb()
+
 # Initialize environment variables
 env = environ.Env()
 environ.Env.read_env() 

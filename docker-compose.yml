@@ -1,0 +1,87 @@
+# docker-compose.yml
+
+# Tell Compose to pass through everything from .env into each container:
+x-defaults: &defaults
+  env_file:
+    - .env
+  restart: always
+  networks:
+    - web
+
+services:
+  web:
+    <<: *defaults
+    build: .
+    image: aimarketingplatform-web
+    depends_on:
+      - redis
+      - db
+    environment:
+      - DATABASE_URL
+      - REDIS_URL
+      - DEBUG
+      - SECRET_KEY
+      - ALLOWED_HOSTS
+    command: gunicorn ai_marketing.wsgi:application --bind 0.0.0.0:8000 --workers 4 --log-level debug
+    volumes:
+      - static_volume:/app/staticfiles
+      - media_volume:/app/media
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.web.rule=Host(`aimarketingplatform.app`)"
+      - "traefik.http.routers.web.entrypoints=websecure"
+      - "traefik.http.routers.web.tls.certresolver=myresolver"
+      - "traefik.http.services.web.loadbalancer.server.port=8000"
+
+  celery_worker:
+    <<: *defaults
+    build: .
+    image: aimarketingplatform-web
+    depends_on:
+      - web
+      - redis
+      - db
+    environment:
+      - DATABASE_URL
+      - REDIS_URL
+      - DEBUG
+      - SECRET_KEY
+    command: celery -A ai_marketing worker -l info
+
+  celery_beat:
+    <<: *defaults
+    build: .
+    image: aimarketingplatform-web
+    depends_on:
+      - web
+      - redis
+      - db
+    environment:
+      - DATABASE_URL
+      - REDIS_URL
+      - DEBUG
+      - SECRET_KEY
+    command: celery -A ai_marketing beat -l info
+
+  redis:
+    <<: *defaults
+    image: redis:7-alpine
+    volumes:
+      - redis_data:/data
+
+  db:
+    <<: *defaults
+    image: postgres:14-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+
+volumes:
+  postgres_data:
+  redis_data:
+  static_volume:
+  media_volume:
+
+
+networks:
+  web:
+    driver: bridge
