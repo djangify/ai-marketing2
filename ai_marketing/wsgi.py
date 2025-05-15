@@ -19,5 +19,5 @@ if threading.current_thread() is threading.main_thread():
     signal.signal(signal.SIGUSR1, graceful_shutdown)  # User-defined signal
 
 # Continue bootstrapping Django as usual
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "myproject.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "ai_marketing.settings")
 application = get_wsgi_application()
